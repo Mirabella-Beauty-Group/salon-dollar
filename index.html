@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Salon Dollar | Nick Mirabella</title>
+<meta name="description" content="What the salon percentages mean, where they should land, and what your salon actually keeps. A free profit calculator for salon owners.">
+<meta name="theme-color" content="#f5f0ea">
+<link rel="canonical" href="https://nickmm1.github.io/salon-dollar/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Salon Dollar">
+<meta property="og:description" content="Put in one month of revenue and see exactly what your salon keeps.">
+<meta property="og:url" content="https://nickmm1.github.io/salon-dollar/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,600;16..144,700&family=Montserrat:wght@400;500;600;700&display=swap">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>&#129518;</text></svg>">
+<style>
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0; background:#f5f0ea; color:#1a1714;
+    font-family:"Montserrat",ui-sans-serif,system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:clamp(16px,3vw,40px) clamp(12px,3vw,28px) 72px;
+    overflow-x:hidden;
+  }
+  .sd-shell{max-width:1160px; margin:0 auto;}
+  .sd-mast{margin-bottom:6px;}
+  .sd-mast h1{
+    font-family:"Montagu Slab",Georgia,serif; font-weight:700;
+    font-size:clamp(30px,6vw,48px); line-height:1.06; letter-spacing:-0.015em;
+    margin:0 0 10px; text-wrap:balance;
+  }
+  .sd-foot{
+    max-width:1160px; margin:36px auto 0; padding-top:20px;
+    border-top:1px solid #e0d8cf; font-size:13px; color:#8a8177;
+    display:flex; gap:14px; justify-content:space-between; flex-wrap:wrap;
+  }
+  .sd-foot a{color:#0099cc; text-decoration:none; font-weight:600;}
+  .sd-foot a:hover{text-decoration:underline;}
+  @media (prefers-color-scheme: dark){
+    body{background:#f5f0ea; color:#1a1714;}
+  }
+</style>
+</head>
+<body>
+<div class="sd-shell">
+  <div class="sd-mast"><h1>The Salon Dollar</h1></div>
+<div class="scc-app" id="sccApp">
+<style>
+
+.scc-calc{
+  --scc-ground:#f5f0ea; --scc-card:#ffffff; --scc-ink:#1a1714; --scc-ink2:#5d554b;
+  --scc-ink3:#8a8177; --scc-rule:#e0d8cf; --scc-soft:#f0eae2; --scc-accent:#0099cc;
+  --scc-team:#2a78d6; --scc-owner:#eb6834; --scc-rent:#4a3aa7; --scc-prod:#b3a89b;
+  --scc-mktg:#e87ba4; --scc-opex:#eda100; --scc-profit:#1baf7a;
+  --scc-good:#157f4f; --scc-warn:#a1620a; --scc-bad:#c0362c;
+  background:var(--scc-ground); color:var(--scc-ink);
+  font-family:inherit; font-size:16px; line-height:1.55;
+  padding:28px; border-radius:12px; border:1px solid var(--scc-rule);
+  box-sizing:border-box;
+  /* Themes often lock page content into a narrow column. Break out of it so the
+     two-column layout has room, capped so it never runs edge to edge. */
+  width:100%; max-width:1160px; margin:0 auto;
+}
+.scc-calc *,.scc-calc *:before,.scc-calc *:after{box-sizing:border-box;}
+.scc-calc p{margin:0 0 10px; color:var(--scc-ink2); font-size:15px;}
+
+.scc-calc .scc-hd{margin-bottom:22px;}
+.scc-calc .scc-eyebrow{
+  font-size:11px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--scc-ink3); margin:0 0 8px; display:block;
+}
+.scc-calc .scc-title{
+  font-size:30px; line-height:1.15; font-weight:700; margin:0 0 8px; color:var(--scc-ink);
+}
+.scc-calc .scc-lede{font-size:15px; color:var(--scc-ink2); margin:0; max-width:640px;}
+
+/* revenue hero */
+.scc-calc .scc-hero{
+  background:var(--scc-card); border:1px solid var(--scc-rule); border-radius:10px;
+  padding:20px 22px; margin-bottom:16px;
+  display:flex; flex-wrap:wrap; gap:20px; align-items:flex-end;
+}
+.scc-calc .scc-hero-f{flex:1 1 220px; min-width:200px;}
+.scc-calc .scc-hero-lab{
+  display:block; font-size:11px; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--scc-ink3); margin-bottom:7px;
+}
+.scc-calc .scc-money{position:relative;}
+.scc-calc .scc-money:before{
+  content:"$"; position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  font-size:26px; font-weight:700; color:var(--scc-ink3); pointer-events:none;
+}
+.scc-calc input.scc-big{
+  width:100%; padding:10px 12px 10px 34px; font-size:26px; font-weight:700;
+  font-family:inherit; color:var(--scc-ink); background:var(--scc-soft);
+  border:1px solid var(--scc-rule); border-radius:8px; -moz-appearance:textfield;
+}
+.scc-calc input.scc-big::-webkit-outer-spin-button,
+.scc-calc input.scc-big::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+.scc-calc .scc-hint{font-size:12px; color:var(--scc-ink3); margin:6px 0 0;}
+
+/* presets */
+.scc-calc .scc-presets{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+.scc-calc button.scc-preset{
+  font-family:inherit; font-size:13px; font-weight:600; cursor:pointer;
+  padding:8px 14px; border-radius:999px; border:1px solid var(--scc-rule);
+  background:var(--scc-card); color:var(--scc-ink2);
+}
+.scc-calc button.scc-preset:hover{border-color:var(--scc-accent); color:var(--scc-ink);}
+.scc-calc button.scc-preset.scc-on{
+  background:var(--scc-ink); color:#fff; border-color:var(--scc-ink);
+}
+.scc-calc button.scc-preset:focus-visible{outline:2px solid var(--scc-accent); outline-offset:2px;}
+
+.scc-calc .scc-presets-lab{
+  display:block; font-size:11px; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--scc-ink3); margin:0 0 9px;
+}
+.scc-calc .scc-presets{margin-bottom:8px;}
+.scc-calc .scc-preset-note{
+  font-size:13px; color:var(--scc-ink2); margin:0 0 20px; max-width:660px;
+  padding-left:13px; border-left:3px solid var(--scc-accent);
+}
+
+/* two-column shell */
+.scc-calc .scc-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:18px;}
+@media(max-width:780px){
+  /* minmax(0,1fr), not 1fr: a plain 1fr track refuses to shrink below the
+     table's min-width and pushes the whole page into horizontal scroll. */
+  .scc-calc .scc-grid{grid-template-columns:minmax(0,1fr);}
+  .scc-calc{padding:18px;}
+}
+
+.scc-calc .scc-panel{
+  min-width:0;
+  background:var(--scc-card); border:1px solid var(--scc-rule);
+  border-radius:10px; padding:20px;
+}
+.scc-calc .scc-ph{
+  font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;
+  color:var(--scc-ink3); margin:0 0 4px; padding-bottom:10px;
+  border-bottom:1px solid var(--scc-rule);
+}
+.scc-calc .scc-grp{
+  font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--scc-ink3); margin:20px 0 2px;
+}
+.scc-calc .scc-grp:first-of-type{margin-top:14px;}
+
+/* input rows */
+.scc-calc .scc-row{
+  display:flex; align-items:center; gap:12px;
+  padding:9px 0; border-bottom:1px solid var(--scc-soft);
+}
+.scc-calc .scc-row:last-child{border-bottom:0;}
+.scc-calc .scc-rl{flex:1 1 auto; min-width:0;}
+.scc-calc .scc-rn{font-size:14px; font-weight:600; color:var(--scc-ink); display:block;}
+.scc-calc .scc-rs{font-size:11.5px; color:var(--scc-ink3); display:block; line-height:1.35;}
+.scc-calc .scc-rf{flex:0 0 auto; display:flex; align-items:center; gap:5px;}
+.scc-calc input.scc-in{
+  width:78px; padding:7px 9px; font-size:15px; font-weight:600; text-align:right;
+  font-family:inherit; color:var(--scc-ink); background:var(--scc-soft);
+  border:1px solid var(--scc-rule); border-radius:6px; -moz-appearance:textfield;
+}
+.scc-calc input.scc-in::-webkit-outer-spin-button,
+.scc-calc input.scc-in::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
+.scc-calc input.scc-in:focus,.scc-calc input.scc-big:focus{
+  outline:2px solid var(--scc-accent); outline-offset:1px; border-color:var(--scc-accent);
+}
+.scc-calc .scc-unit{font-size:13px; font-weight:600; color:var(--scc-ink3); width:14px;}
+.scc-calc .scc-live{
+  font-size:11.5px; color:var(--scc-ink3); width:56px; text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+
+/* toggle */
+.scc-calc .scc-tog{
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+  background:var(--scc-soft); border:1px solid var(--scc-rule);
+  border-radius:8px; padding:12px 14px; margin:14px 0 4px;
+}
+.scc-calc .scc-tog input{width:17px; height:17px; accent-color:var(--scc-accent); cursor:pointer; flex:none;}
+.scc-calc .scc-tog-t{font-size:14px; font-weight:700; color:var(--scc-ink); display:block;}
+.scc-calc .scc-tog-s{font-size:11.5px; color:var(--scc-ink2); display:block; line-height:1.4;}
+
+/* headline */
+.scc-calc .scc-head{
+  border-radius:10px; padding:18px 20px; margin-bottom:16px; border:1px solid;
+}
+.scc-calc .scc-head.scc-ok{background:#eaf7f0; border-color:#b6e0cb;}
+.scc-calc .scc-head.scc-mid{background:#fdf4e3; border-color:#ecd9ac;}
+.scc-calc .scc-head.scc-no{background:#fbeceb; border-color:#f0c4c0;}
+.scc-calc .scc-hnum{
+  font-size:38px; font-weight:700; line-height:1.05; font-variant-numeric:tabular-nums;
+  display:block; letter-spacing:-0.5px;
+}
+.scc-calc .scc-head.scc-ok .scc-hnum{color:var(--scc-good);}
+.scc-calc .scc-head.scc-mid .scc-hnum{color:var(--scc-warn);}
+.scc-calc .scc-head.scc-no .scc-hnum{color:var(--scc-bad);}
+.scc-calc .scc-hsub{font-size:13.5px; color:var(--scc-ink2); margin:6px 0 0; display:block;}
+.scc-calc .scc-hverdict{font-size:14px; font-weight:700; color:var(--scc-ink); margin:10px 0 0; display:block;}
+
+/* pie */
+.scc-calc .scc-pie-wrap{display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:6px;}
+.scc-calc .scc-pie{width:196px; height:196px; flex:none; display:block;}
+@media(max-width:520px){
+  .scc-calc .scc-pie{width:150px; height:150px;}
+  .scc-calc .scc-hnum{font-size:30px;}
+  .scc-calc .scc-title{font-size:24px;}
+}
+.scc-calc .scc-pie path{stroke:var(--scc-card); stroke-width:2.5; stroke-linejoin:round;}
+.scc-calc .scc-key{flex:1 1 200px; min-width:180px; display:flex; flex-direction:column; gap:5px;}
+.scc-calc .scc-ki{display:flex; align-items:center; gap:8px; font-size:12.5px;}
+.scc-calc .scc-kc{width:10px; height:10px; border-radius:2px; flex:none;}
+.scc-calc .scc-kn{flex:1 1 auto; color:var(--scc-ink2);}
+.scc-calc .scc-kv{font-weight:700; font-variant-numeric:tabular-nums; color:var(--scc-ink);}
+.scc-calc .scc-ki.scc-klos{
+  display:block; color:var(--scc-bad); font-weight:600; font-size:11.5px;
+  line-height:1.45; margin-top:5px; padding-top:7px; border-top:1px solid var(--scc-rule);
+}
+
+/* ledger */
+.scc-calc table.scc-led{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:6px;}
+.scc-calc table.scc-led th{
+  font-size:10.5px; font-weight:700; letter-spacing:0.9px; text-transform:uppercase;
+  color:var(--scc-ink3); text-align:left; padding:0 8px 8px 0;
+  border-bottom:1px solid var(--scc-rule); background:none;
+}
+.scc-calc table.scc-led th.scc-n,.scc-calc table.scc-led td.scc-n{
+  text-align:right; padding-right:0; padding-left:16px;
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.scc-calc table.scc-led td{
+  padding:7px 8px 7px 0; border-bottom:1px solid var(--scc-soft);
+  color:var(--scc-ink2); background:none;
+}
+.scc-calc table.scc-led td.scc-n{font-weight:600; color:var(--scc-ink);}
+.scc-calc table.scc-led tr.scc-g td{
+  font-size:10.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--scc-ink3); padding-top:15px; border-bottom:1px solid var(--scc-rule);
+}
+.scc-calc table.scc-led tr.scc-s td{font-size:13px;}
+.scc-calc table.scc-led tr.scc-s td:first-child{padding-left:16px;}
+.scc-calc table.scc-led tr.scc-t td{
+  font-weight:700; color:var(--scc-ink); border-top:2px solid var(--scc-rule);
+  border-bottom:0; padding-top:10px; font-size:15px;
+}
+.scc-calc table.scc-led tr.scc-pf td{color:var(--scc-profit);}
+.scc-calc table.scc-led tr.scc-pf td.scc-neg{color:var(--scc-bad);}
+.scc-calc .scc-dot{
+  display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:8px;
+}
+.scc-calc .scc-flag{
+  font-size:10.5px; font-weight:700; padding:1px 6px; border-radius:4px;
+  margin-left:7px; letter-spacing:0.4px; white-space:nowrap;
+}
+.scc-calc .scc-flag.scc-ok{background:#e2f3ea; color:var(--scc-good);}
+.scc-calc .scc-flag.scc-no{background:#fae9e7; color:var(--scc-bad);}
+
+.scc-calc .scc-ledwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+.scc-calc table.scc-led{min-width:520px;}
+.scc-calc table.scc-led td.scc-bal{
+  font-weight:700; color:var(--scc-ink); background:#f7f4ef;
+  border-left:1px solid var(--scc-rule); padding-left:10px;
+}
+.scc-calc table.scc-led td.scc-bal.scc-neg{color:var(--scc-bad);}
+.scc-calc table.scc-led tr.scc-mk td{
+  font-size:11.5px; font-weight:700; letter-spacing:0.4px; color:var(--scc-ink2);
+  background:#f7f4ef; padding-top:8px; padding-bottom:8px;
+  border-bottom:1px solid var(--scc-rule);
+}
+.scc-calc table.scc-led tr.scc-mk td.scc-bal{font-size:14px;}
+.scc-calc table.scc-led tr.scc-mk-team td{color:var(--scc-team);}
+.scc-calc table.scc-led tr.scc-mk-owner td{color:var(--scc-owner);}
+
+/* fixes */
+.scc-calc .scc-fix{
+  margin-top:16px; border-left:3px solid var(--scc-opex);
+  background:#fdf7ea; border-radius:0 8px 8px 0; padding:15px 17px;
+}
+.scc-calc .scc-fix-t{
+  font-size:11px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase;
+  color:var(--scc-warn); margin:0 0 9px; display:block;
+}
+.scc-calc .scc-fix ul{margin:0; padding-left:18px; display:block;}
+.scc-calc .scc-fix li{font-size:13.5px; color:var(--scc-ink2); margin-bottom:6px; line-height:1.5;}
+.scc-calc .scc-fix li strong{color:var(--scc-ink);}
+.scc-calc .scc-fix li:last-child{margin-bottom:0;}
+
+.scc-calc .scc-foot{
+  margin-top:18px; padding-top:15px; border-top:1px solid var(--scc-rule);
+  font-size:12px; color:var(--scc-ink3);
+}
+.scc-calc .scc-foot strong{color:var(--scc-ink2);}
+
+/* ============ TAB SHELL ============ */
+.scc-app{
+  --scc-ground:#f5f0ea; --scc-card:#ffffff; --scc-ink:#1a1714; --scc-ink2:#5d554b;
+  --scc-ink3:#8a8177; --scc-rule:#e0d8cf; --scc-soft:#f0eae2; --scc-accent:#0099cc;
+  --scc-team:#2a78d6; --scc-owner:#eb6834; --scc-rent:#4a3aa7; --scc-prod:#b3a89b;
+  --scc-mktg:#e87ba4; --scc-opex:#eda100; --scc-profit:#1baf7a;
+  --scc-good:#157f4f; --scc-warn:#a1620a; --scc-bad:#c0362c;
+  color:var(--scc-ink); font-family:inherit; font-size:16px; line-height:1.55;
+  box-sizing:border-box;
+  width:100%; max-width:1160px; margin:0 auto;
+}
+.scc-app *,.scc-app *:before,.scc-app *:after{box-sizing:border-box;}
+.scc-app .scc-calc{width:100%; margin-left:0; margin-right:0;}
+
+.scc-apphead{margin-bottom:18px;}
+.scc-app .scc-eyebrow{
+  font-size:11px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--scc-ink3); margin:0 0 8px; display:block;
+}
+.scc-apptitle{font-size:clamp(26px,4.5vw,38px); line-height:1.12; font-weight:700; margin:0 0 8px;}
+.scc-applede{font-size:16.5px; color:var(--scc-ink2); margin:0; max-width:62ch;}
+
+.scc-tabs{display:flex; gap:4px; border-bottom:2px solid var(--scc-rule); margin-bottom:0; flex-wrap:wrap;}
+.scc-app button.scc-tab{
+  font-family:inherit; font-size:14px; font-weight:700; cursor:pointer;
+  padding:12px 18px; border:0; background:none; color:var(--scc-ink3);
+  border-bottom:3px solid transparent; margin-bottom:-2px; white-space:nowrap;
+}
+.scc-app button.scc-tab:hover{color:var(--scc-ink);}
+.scc-app button.scc-tab[aria-selected="true"]{color:var(--scc-ink); border-bottom-color:var(--scc-accent);}
+.scc-app button.scc-tab:focus-visible{outline:2px solid var(--scc-accent); outline-offset:-2px;}
+.scc-tabnum{
+  display:inline-block; font-size:11px; font-weight:700; color:var(--scc-ink3);
+  margin-right:7px; vertical-align:1px;
+}
+.scc-app button.scc-tab[aria-selected="true"] .scc-tabnum{color:var(--scc-accent);}
+
+.scc-pane{display:none; padding-top:22px;}
+.scc-pane.scc-live{display:block;}
+
+/* shared card + type inside the first two panes */
+.scc-app .scc-box{
+  background:var(--scc-card); border:1px solid var(--scc-rule);
+  border-radius:10px; padding:clamp(18px,3vw,28px); margin-bottom:16px;
+}
+.scc-app h3.scc-h{
+  font-size:clamp(18px,2.6vw,23px); line-height:1.2; font-weight:700; margin:0 0 6px; color:var(--scc-ink);
+}
+.scc-app .scc-base{
+  font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--scc-ink3); margin:0 0 14px;
+}
+.scc-app .scc-base b{color:var(--scc-ink2);}
+.scc-app .scc-p{font-size:14.5px; color:var(--scc-ink2); margin:0 0 12px; max-width:64ch;}
+.scc-app .scc-p:last-child{margin-bottom:0;}
+.scc-app .scc-p b{color:var(--scc-ink);}
+
+.scc-mathline{
+  display:flex; flex-direction:column; gap:2px; font-variant-numeric:tabular-nums;
+  margin:14px 0 16px; max-width:420px;
+}
+.scc-ml{display:flex; justify-content:space-between; gap:14px; padding:8px 0;
+  border-bottom:1px solid var(--scc-soft); font-size:15px;}
+.scc-ml:last-child{border-bottom:0;}
+.scc-ml span:first-child{color:var(--scc-ink2);}
+.scc-ml span:last-child{font-weight:700;}
+.scc-ml.scc-eq span{color:var(--scc-accent); font-weight:700;}
+
+.scc-two{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
+.scc-mini{border:1px solid var(--scc-rule); border-radius:8px; padding:15px 17px;}
+.scc-mini-h{font-size:13.5px; font-weight:700; color:var(--scc-ink); margin-bottom:4px;}
+.scc-mini-b{font-size:13px; color:var(--scc-ink2); line-height:1.5;}
+
+/* the reference pie */
+.scc-refwrap{display:grid; grid-template-columns:minmax(200px,300px) 1fr; gap:clamp(18px,3.5vw,36px); align-items:center;}
+@media(max-width:700px){.scc-refwrap{grid-template-columns:1fr;} .scc-refpie{max-width:280px; margin:0 auto;}}
+.scc-refpie{width:100%; height:auto; display:block; overflow:visible;}
+.scc-refpie path{stroke:var(--scc-card); stroke-width:3; stroke-linejoin:round;}
+.scc-refpie text{text-anchor:middle; font-family:inherit; font-variant-numeric:tabular-nums;}
+.scc-refpie .scc-pn{font-size:20px; font-weight:700;}
+.scc-refpie .scc-ps{font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;}
+.scc-reflist{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:13px 20px;}
+.scc-refitem{display:flex; gap:9px; align-items:flex-start;}
+.scc-refsw{width:12px; height:12px; border-radius:3px; flex:none; margin-top:4px;}
+.scc-refname{font-weight:700; font-size:13.5px; color:var(--scc-ink);}
+.scc-refname i{font-style:normal; font-weight:600; color:var(--scc-ink2); margin-left:6px;}
+.scc-refdesc{font-size:12.5px; color:var(--scc-ink2); line-height:1.45;}
+
+.scc-nest{
+  border-left:3px solid var(--scc-team);
+  background:rgba(42,120,214,.07); padding:14px 17px; border-radius:0 7px 7px 0; margin-top:16px;
+}
+.scc-nest-t{font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--scc-team); margin-bottom:7px;}
+.scc-nest ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:5px;}
+.scc-nest li{font-size:13.5px; color:var(--scc-ink2);}
+.scc-nest li b{color:var(--scc-ink);}
+
+.scc-tw{overflow-x:auto;}
+.scc-app table.scc-ref{width:100%; border-collapse:collapse; font-size:13.5px; min-width:520px;}
+.scc-app table.scc-ref th{
+  font-size:10.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  color:var(--scc-ink3); text-align:left; padding:0 14px 9px 0;
+  border-bottom:1px solid var(--scc-rule); background:none;
+}
+.scc-app table.scc-ref td{padding:9px 14px 9px 0; border-bottom:1px solid var(--scc-soft);
+  color:var(--scc-ink2); background:none; vertical-align:top;}
+.scc-app table.scc-ref td:nth-child(2){font-weight:700; color:var(--scc-ink);
+  font-variant-numeric:tabular-nums; white-space:nowrap;}
+.scc-app table.scc-ref tbody tr:last-child td{border-bottom:0;}
+
+.scc-ladder{display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:2px; margin-top:6px;}
+.scc-rung{background:var(--scc-soft); padding:14px 13px; display:flex; flex-direction:column; gap:2px;}
+.scc-rung:first-child{border-radius:7px 2px 2px 7px;}
+.scc-rung:last-child{border-radius:2px 7px 7px 2px;
+  background:rgba(235,104,52,.13); box-shadow:inset 0 0 0 1px rgba(235,104,52,.4);}
+.scc-rt{font-size:10.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--scc-ink3);}
+.scc-rung:last-child .scc-rt{color:var(--scc-rent);}
+.scc-rp{font-size:25px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.1;}
+
+.scc-cta{
+  margin-top:4px; background:var(--scc-card); border:1px solid var(--scc-rule);
+  border-radius:10px; padding:18px 20px; display:flex; gap:14px;
+  align-items:center; justify-content:space-between; flex-wrap:wrap;
+}
+.scc-cta-t{font-size:15px; font-weight:700; color:var(--scc-ink);}
+.scc-cta-s{font-size:13px; color:var(--scc-ink2); margin-top:2px;}
+.scc-app button.scc-go{
+  font-family:inherit; font-size:14px; font-weight:700; cursor:pointer;
+  padding:11px 20px; border-radius:999px; border:0;
+  background:var(--scc-ink); color:#fff; white-space:nowrap;
+}
+.scc-app button.scc-go:hover{background:var(--scc-accent);}
+.scc-app button.scc-go:focus-visible{outline:2px solid var(--scc-accent); outline-offset:2px;}
+</style>
+
+  <div class="scc-apphead">
+    <span class="scc-eyebrow">The Salon CEO Operating System</span>
+    <p class="scc-applede">What the percentages mean, where they are supposed to land, and what your
+      salon actually keeps. Start on the left and work your way right.</p>
+  </div>
+
+  <div class="scc-tabs" role="tablist" aria-label="The Salon Dollar">
+    <button type="button" class="scc-tab" id="sccTabBasics" role="tab" data-t="basics"
+      aria-selected="true"  aria-controls="sccPaneBasics" tabindex="0"><span class="scc-tabnum">01</span>Start here</button>
+    <button type="button" class="scc-tab" id="sccTabDollar" role="tab" data-t="dollar"
+      aria-selected="false" aria-controls="sccPaneDollar" tabindex="-1"><span class="scc-tabnum">02</span>The Salon Dollar</button>
+    <button type="button" class="scc-tab" id="sccTabCalc"   role="tab" data-t="calc"
+      aria-selected="false" aria-controls="sccPaneCalc"   tabindex="-1"><span class="scc-tabnum">03</span>Run your numbers</button>
+  </div>
+
+<div class="scc-pane scc-live" id="sccPaneBasics" role="tabpanel" aria-labelledby="sccTabBasics">
+
+  <div class="scc-box">
+    <h3 class="scc-h">A percentage is one cost divided by your month.</h3>
+    <p class="scc-base">That is the whole calculation</p>
+    <div class="scc-mathline">
+      <div class="scc-ml"><span>Rent was</span><span>$8,000</span></div>
+      <div class="scc-ml"><span>The month was</span><span>$100,000</span></div>
+      <div class="scc-ml scc-eq"><span>8,000 divided by 100,000</span><span>8%</span></div>
+    </div>
+    <p class="scc-p">Cost on top, your month on the bottom. That is it. No accounting degree, no software.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Why you cannot judge a number in dollars alone</h3>
+    <div class="scc-two">
+      <div class="scc-mini">
+        <div class="scc-mini-h">$8,000 rent on a $100,000 month</div>
+        <div class="scc-mini-b">That is 8%. Comfortable. You have room to pay everybody and still keep something.</div>
+      </div>
+      <div class="scc-mini">
+        <div class="scc-mini-h">The same $8,000 on a $40,000 month</div>
+        <div class="scc-mini-b">That is 20%. The exact same lease is now eating you alive, and nothing about the building changed.</div>
+      </div>
+    </div>
+    <p class="scc-p" style="margin-top:14px;">The rent did not get worse. The month got smaller. A dollar amount with no month behind it is a number with no meaning, which is why every target on the next tab is a percentage.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">The one trap that catches everybody</h3>
+    <p class="scc-p">Not every percentage divides by the same number. Get this wrong and your math will never match anybody else's.</p>
+    <div class="scc-two">
+      <div class="scc-mini">
+        <div class="scc-mini-h">Divide by TOTAL revenue</div>
+        <div class="scc-mini-b">Payroll, rent, your pay, manager pay, and profit. Everything that came in the door goes on the bottom.</div>
+      </div>
+      <div class="scc-mini">
+        <div class="scc-mini-h">Divide by SERVICE sales only</div>
+        <div class="scc-mini-b">Retail and backbar. Leave retail sales out of the bottom, or you are measuring retail against itself.</div>
+      </div>
+    </div>
+    <p class="scc-p" style="margin-top:14px;">Divide retail by your whole month and it will look better than it is, every single time.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">How to pull your own numbers</h3>
+    <p class="scc-p">Five minutes, once a month. You need four things and they are all in your booking software and your bank.</p>
+    <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;">
+      <li class="scc-p" style="margin:0;"><b>Total revenue.</b> Everything that came in. Service plus retail.</li>
+      <li class="scc-p" style="margin:0;"><b>Total payroll.</b> Commissions, hourly, salary, bonuses, and your own pay. All of it, one number.</li>
+      <li class="scc-p" style="margin:0;"><b>Your fixed bills.</b> Rent, insurance, utilities, software, marketing.</li>
+      <li class="scc-p" style="margin:0;"><b>Product.</b> What you paid for backbar and for the retail you sold.</li>
+    </ol>
+    <p class="scc-p" style="margin-top:14px;">Use last month, not a good month. The point is to see what is actually happening.</p>
+  </div>
+
+  <div class="scc-cta">
+    <div>
+      <div class="scc-cta-t">Now go see where the targets are</div>
+      <div class="scc-cta-s">Every number a healthy salon is measured against, on one page.</div>
+    </div>
+    <button type="button" class="scc-go" data-goto="dollar">The Salon Dollar</button>
+  </div>
+</div>
+<div class="scc-pane" id="sccPaneDollar" role="tabpanel" aria-labelledby="sccTabDollar" hidden>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Where every dollar of income goes</h3>
+    <p class="scc-base">Measured against <b>total income</b></p>
+    <div class="scc-refwrap">
+      <svg class="scc-refpie" viewBox="-125 -118 250 240" role="img"
+           aria-label="One dollar of income: payroll 45 percent, rent 10 percent, everything else 25 percent, profit 20 percent.">
+        <g>
+          <path fill="#2a78d6" d="M 0 0 L 0.00 -100.00 A 100 100 0 0 1 30.90 95.11 Z"></path>
+          <path fill="#eb6834" d="M 0 0 L 30.90 95.11 A 100 100 0 0 1 -30.90 95.11 Z"></path>
+          <path fill="#b3a89b" d="M 0 0 L -30.90 95.11 A 100 100 0 0 1 -95.11 -30.90 Z"></path>
+          <path fill="#1baf7a" d="M 0 0 L -95.11 -30.90 A 100 100 0 0 1 -0.00 -100.00 Z"></path>
+        </g>
+        <g>
+          <text class="scc-pn" x="61.24" y="-10" fill="#fff">45%</text>
+          <text class="scc-ps" x="61.24" y="7" fill="#fff">Payroll</text>
+          <text class="scc-pn" x="-58.61" y="18" fill="#2a241d">25%</text>
+          <text class="scc-ps" x="-58.61" y="35" fill="#2a241d">Everything else</text>
+          <text class="scc-pn" x="-35.27" y="-53" fill="#fff">20%</text>
+          <text class="scc-ps" x="-35.27" y="-36" fill="#fff">Profit</text>
+          <text class="scc-pn" x="0" y="118" fill="#1a1714">10%</text>
+          <text class="scc-ps" x="0" y="134" fill="#5d554b">Rent</text>
+        </g>
+      </svg>
+      <div class="scc-reflist">
+        <div class="scc-refitem"><span class="scc-refsw" style="background:#2a78d6"></span><div>
+          <div class="scc-refname">Payroll <i>45% ceiling</i></div>
+          <div class="scc-refdesc">Every dollar paid to a human. Wages, commissions, salary, bonuses.</div></div></div>
+        <div class="scc-refitem"><span class="scc-refsw" style="background:#eb6834"></span><div>
+          <div class="scc-refname">Rent <i>10% ceiling</i></div>
+          <div class="scc-refdesc">Fixed, so the only fix is more revenue in the same room.</div></div></div>
+        <div class="scc-refitem"><span class="scc-refsw" style="background:#b3a89b"></span><div>
+          <div class="scc-refname">Everything else <i>what is left</i></div>
+          <div class="scc-refdesc">Product, card fees, insurance, utilities, software, marketing, payroll taxes, repairs.</div></div></div>
+        <div class="scc-refitem"><span class="scc-refsw" style="background:#1baf7a"></span><div>
+          <div class="scc-refname">Profit <i>20% floor</i></div>
+          <div class="scc-refdesc">A floor, not a goal. Below 10% is survival mode.</div></div></div>
+      </div>
+    </div>
+    <div class="scc-nest">
+      <div class="scc-nest-t">Two limits that live INSIDE the 45%</div>
+      <ul>
+        <li><b>Your pay: at least 10%</b> of income. If this is zero, the salon is a hobby.</li>
+        <li><b>Manager and admin: 10% or less</b> of income. Salaried, not behind a chair.</li>
+      </ul>
+    </div>
+    <p class="scc-p" style="margin-top:14px;">The grey slice is not a target. It is simply whatever is left once the other three are right, and it shrinks every time you beat 20% profit.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Money you move before you spend a dollar</h3>
+    <p class="scc-base">Each one is a share of <b>a different number</b></p>
+    <div class="scc-tw">
+      <table class="scc-ref">
+        <thead><tr><th>Move this</th><th>This much</th><th>Out of</th></tr></thead>
+        <tbody>
+          <tr><td>Income tax</td><td>10%</td><td>Income</td></tr>
+          <tr><td>Payroll tax</td><td>8 to 10%</td><td>Payroll, not revenue</td></tr>
+          <tr><td>Retail replenishment</td><td>50%</td><td>Retail sales</td></tr>
+          <tr><td>Cash cushion</td><td>3 months</td><td>Operating expenses</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="scc-p" style="margin-top:14px;"><b>Profit is what is left. Reserves are what you protect.</b> Treating tax money as spendable cash is borrowing from next year to pay for last year.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">The commission ladder</h3>
+    <p class="scc-base">Measured against <b>that stylist's own service sales</b></p>
+    <p class="scc-p">The 45% ceiling is the whole building. This is one chair. Earned on productivity, not on how long somebody has been here.</p>
+    <div class="scc-ladder">
+      <div class="scc-rung"><span class="scc-rt">Junior</span><span class="scc-rp">40%</span></div>
+      <div class="scc-rung"><span class="scc-rt">Stylist</span><span class="scc-rp">42%</span></div>
+      <div class="scc-rung"><span class="scc-rt">Senior</span><span class="scc-rp">45%</span></div>
+      <div class="scc-rung"><span class="scc-rt">Master</span><span class="scc-rp">48%</span></div>
+      <div class="scc-rung"><span class="scc-rt">Hard ceiling</span><span class="scc-rp">50%</span></div>
+    </div>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Every target, and what it is divided by</h3>
+    <div class="scc-tw">
+      <table class="scc-ref">
+        <thead><tr><th>Number</th><th>Target</th><th>Divided by</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Payroll</td><td>&le; 45%</td><td>Total income</td><td>Break it and raises become impossible.</td></tr>
+          <tr><td>Rent</td><td>&le; 10%</td><td>Total income</td><td>The fix is revenue, not a smaller space.</td></tr>
+          <tr><td>Your pay</td><td>&ge; 10%</td><td>Total income</td><td>Sits inside payroll. Zero here means a hobby.</td></tr>
+          <tr><td>Manager and admin</td><td>&le; 10%</td><td>Total income</td><td>Sits inside payroll. The role has to pay for itself.</td></tr>
+          <tr><td>Net margin</td><td>&ge; 20%</td><td>Total income</td><td>Downstream. Fix what is bleeding into it.</td></tr>
+          <tr><td>Retail</td><td>&ge; 15%</td><td>Service revenue</td><td>Close to pure margin. The biggest ignored lever.</td></tr>
+          <tr><td>Backbar</td><td>&asymp; 5%</td><td>Service revenue</td><td>Over is a leak. Way under is a shortage coming.</td></tr>
+          <tr><td>Utilization</td><td>&ge; 80%</td><td>Bookable hours</td><td>Below 70%, no raises and no hires.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="scc-cta">
+    <div>
+      <div class="scc-cta-t">Now put your own numbers in</div>
+      <div class="scc-cta-s">See what your salon actually keeps, and what it would take to change it.</div>
+    </div>
+    <button type="button" class="scc-go" data-goto="calc">Run your numbers</button>
+  </div>
+</div>
+
+<div class="scc-pane" id="sccPaneCalc" role="tabpanel" aria-labelledby="sccTabCalc" hidden>
+<div class="scc-calc" id="sccCalc">
+
+
+  <div class="scc-hd">
+    <span class="scc-eyebrow">The Salon CEO Operating System</span>
+    <div class="scc-title">What does your salon actually keep?</div>
+    <p class="scc-lede">Put in one month of revenue and how you pay your team. This shows you where every
+      dollar lands and whether the profit you want is even available at the numbers you are running.</p>
+  </div>
+
+  <div class="scc-hero">
+    <div class="scc-hero-f">
+      <label class="scc-hero-lab" for="sccRev">Monthly revenue</label>
+      <div class="scc-money"><input class="scc-big" type="number" id="sccRev" value="100000" min="0" step="1000"></div>
+    </div>
+    <div class="scc-hero-f">
+      <label class="scc-hero-lab" for="sccTarget">Profit you want to keep</label>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <input class="scc-big" type="number" id="sccTarget" value="20" min="0" max="60" step="1" style="padding-left:12px;">
+        <span style="font-size:26px;font-weight:700;color:var(--scc-ink3);">%</span>
+      </div>
+      <p class="scc-hint">Set this first. Everything else has to fit around it.</p>
+    </div>
+  </div>
+
+  <span class="scc-presets-lab">Four starting points. Pick the one closest to your salon, then change any number below.</span>
+  <div class="scc-presets" id="sccPresets">
+    <button type="button" class="scc-preset" data-p="reality">50% commission, as it really runs</button>
+    <button type="button" class="scc-preset" data-p="partslabor">Same salon, with parts and labor</button>
+    <button type="button" class="scc-preset" data-p="target">Payroll right at the ceiling</button>
+    <button type="button" class="scc-preset" data-p="booth">Lean team, strong retail</button>
+  </div>
+  <p class="scc-preset-note" id="sccPresetNote"></p>
+
+  <div class="scc-grid">
+
+    <!-- ============ INPUTS ============ -->
+    <div class="scc-panel">
+      <div class="scc-ph">Your numbers</div>
+
+      <div class="scc-grp">Where the revenue comes from</div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Retail</span><span class="scc-rs">Share of total revenue. The rest is service.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccRetail" value="15" min="0" max="60" step="0.5"><span class="scc-unit">%</span></div>
+      </div>
+
+      <label class="scc-tog" for="sccPL">
+        <input type="checkbox" id="sccPL">
+        <span><span class="scc-tog-t">Bill parts and labor separately</span>
+        <span class="scc-tog-s">Charge the color you actually used as parts, then pay commission on the labor only. A mechanic bills both. Most salons absorb the parts and wonder why the margin is thin.</span></span>
+      </label>
+      <div class="scc-row" id="sccPartsRow" style="display:none;">
+        <div class="scc-rl"><span class="scc-rn">Parts charge</span><span class="scc-rs">An estimated percentage of your service revenue, based on what you are bringing in. It stands in for the color you actually use. Commission is paid on the labor only.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccParts" value="15" min="0" max="50" step="1"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row" id="sccPartsOut" style="display:none;">
+        <div class="scc-rl"><span class="scc-rn" id="sccPartsAmt">&nbsp;</span><span class="scc-rs" id="sccPartsNote">&nbsp;</span></div>
+      </div>
+
+      <div class="scc-grp">What you pay people</div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Service commission</span><span class="scc-rs" id="sccCommSub">Percent of service sales paid to the team.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccComm" value="50" min="0" max="70" step="1"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Retail commission</span><span class="scc-rs">Percent of retail sales paid to the team.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccRComm" value="10" min="0" max="40" step="1"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Payroll tax and burden</span><span class="scc-rs">On top of every payroll dollar. FICA, unemployment, workers comp.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccPTax" value="15" min="0" max="30" step="0.5"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Your pay, per year</span><span class="scc-rs" id="sccOwnerSub">A fixed line, like rent. Not what is left over.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccOwner" value="120000" min="0" step="5000"><span class="scc-live" id="sccOwnerPct"></span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Manager and admin</span><span class="scc-rs">Salaried, not behind a chair.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccAdmin" value="1000" min="0" step="250"><span class="scc-live" id="sccAdminPct"></span></div>
+      </div>
+
+      <div class="scc-grp">Fixed bills, in dollars</div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Rent and CAM</span><span class="scc-rs">Your actual lease number.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccRent" value="8000" min="0" step="250"><span class="scc-live" id="sccRentPct"></span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Marketing</span><span class="scc-rs">Ads, shoots, print, referral rewards. Most small businesses run 5 to 8 percent of revenue. Established salons with strong word of mouth sit at the low end.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccMktg" value="5000" min="0" step="250"><span class="scc-live" id="sccMktgPct"></span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Everything else</span><span class="scc-rs">Insurance, utilities, phone, software, education, repairs, supplies, accountant.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccOpex" value="6000" min="0" step="250"><span class="scc-live" id="sccOpexPct"></span></div>
+      </div>
+
+      <div class="scc-grp">Costs that move with sales</div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Backbar</span><span class="scc-rs">Product used behind the chair. Percent of service sales.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccBackbar" value="5" min="0" max="20" step="0.5"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Retail product cost</span><span class="scc-rs">What you pay for what you sell. Percent of retail sales.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccCogs" value="50" min="0" max="90" step="1"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Card processing</span><span class="scc-rs">Percent of everything you run.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccCard" value="2.5" min="0" max="10" step="0.1"><span class="scc-unit">%</span></div>
+      </div>
+    </div>
+
+    <!-- ============ RESULTS ============ -->
+    <div class="scc-panel">
+      <div class="scc-ph">Where it goes</div>
+
+      <div class="scc-head scc-mid" id="sccHead" style="margin-top:14px;">
+        <span class="scc-hnum" id="sccProfit">&nbsp;</span>
+        <span class="scc-hsub" id="sccProfitSub"></span>
+        <span class="scc-hverdict" id="sccVerdict"></span>
+      </div>
+
+      <div class="scc-pie-wrap">
+        <svg class="scc-pie" id="sccPie" viewBox="-105 -105 210 210" role="img" aria-labelledby="sccPieT">
+          <title id="sccPieT">Where every dollar of revenue goes</title>
+        </svg>
+        <div class="scc-key" id="sccKey"></div>
+      </div>
+
+      <div class="scc-ledwrap">
+        <table class="scc-led">
+          <thead><tr><th>Line</th><th class="scc-n">Dollars</th><th class="scc-n">% of revenue</th><th class="scc-n">What is left</th></tr></thead>
+          <tbody id="sccLed"></tbody>
+        </table>
+      </div>
+
+      <div class="scc-fix" id="sccFix">
+        <span class="scc-fix-t" id="sccFixT">How to close the gap</span>
+        <ul id="sccFixList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="scc-foot">
+    <strong>How to read this.</strong> Profit is not an input. It is whatever survives after everyone else
+    is paid, which is exactly the problem. Set the profit you want at the top, then move the levers on the
+    left until the number on the right actually gets there.
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var root=$('sccCalc'); if(!root) return;
+
+  var F={rev:'sccRev',target:'sccTarget',retail:'sccRetail',parts:'sccParts',comm:'sccComm',
+         rcomm:'sccRComm',ptax:'sccPTax',owner:'sccOwner',admin:'sccAdmin',rent:'sccRent',
+         mktg:'sccMktg',opex:'sccOpex',backbar:'sccBackbar',cogs:'sccCogs',card:'sccCard'};
+
+  var PRESETS={
+    reality:   {comm:50,parts:15,pl:false,retail:15,rcomm:10,ptax:15,owner:120000,admin:1000,
+                rent:8000,mktg:5000,opex:6000,backbar:5,cogs:50,card:2.5,target:20},
+    partslabor:{comm:50,parts:15,pl:true, retail:15,rcomm:10,ptax:15,owner:120000,admin:1000,
+                rent:8000,mktg:5000,opex:6000,backbar:5,cogs:50,card:2.5,target:20},
+    target:    {comm:40,parts:15,pl:false,retail:15,rcomm:10,ptax:15,owner:120000,admin:1000,
+                rent:8000,mktg:4000,opex:6000,backbar:5,cogs:50,card:2.5,target:20},
+    booth:     {comm:45,parts:20,pl:true, retail:22,rcomm:12,ptax:15,owner:144000,admin:0,
+                rent:7000,mktg:5000,opex:5500,backbar:4.5,cogs:50,card:2.5,target:20}
+  };
+
+  var NOTES={
+    reality:'Your pay structure the way most commission salons actually run it. 50% of service revenue to the team, and the house eats the color. Nothing is billed as parts.',
+    partslabor:'The exact same salon with ONE change. The color is billed through as parts, so commission is paid on the labor half only. Same rate, same prices, same guests. Compare the profit to the first tab.',
+    target:'40% service commission, which lands total payroll right on the 45% ceiling. Worth seeing: even with payroll exactly where it belongs, 20% profit still is not automatic. The rest of the building has to be right too.',
+    booth:'Still 45% commission, but retail is 22% of revenue instead of 15, there is no salaried admin, and the lease is cheaper. Shows how much of the work retail and overhead quietly do.'
+  };
+
+  var SL=[
+    {k:'team',   n:'Team and admin pay',  c:'#2a78d6'},
+    {k:'owner',  n:'Your pay',           c:'#eb6834'},
+    {k:'rent',   n:'Rent and CAM',       c:'#4a3aa7'},
+    {k:'product',n:'Product',            c:'#b3a89b'},
+    {k:'mktg',   n:'Marketing',          c:'#e87ba4'},
+    {k:'opex',   n:'Tax, fees, overhead', c:'#eda100'},
+    {k:'profit', n:'Profit',             c:'#1baf7a'}
+  ];
+
+  function num(id){var v=parseFloat($(id).value); return isNaN(v)?0:v;}
+  function usd(v){return (v<0?'-$':'$')+Math.round(Math.abs(v)).toLocaleString('en-US');}
+  function pct(v){return (v*100).toFixed(1)+'%';}
+
+  function model(){
+    var rev=num(F.rev), pl=$('sccPL').checked;
+    var rRet=num(F.retail)/100, rSvc=1-rRet;
+    var c=num(F.comm)/100, rc=num(F.rcomm)/100, T=1+num(F.ptax)/100;
+    var bb=num(F.backbar)/100, cg=num(F.cogs)/100, cf=num(F.card)/100;
+    var retail=rev*rRet, service=rev*rSvc;
+    // Parts is entered as an estimated share of service revenue. It stands in
+    // for the color actually used, and it is the slice that stops paying
+    // commission.
+    var p = pl ? Math.min(0.95, num(F.parts)/100) : 0;
+    var labor=service*(1-p);
+    var teamPay=labor*c + retail*rc;
+    var owner=num(F.owner)/12, admin=num(F.admin);
+    var payroll=teamPay+owner+admin;
+    var ptax=payroll*(T-1);
+    var rent=num(F.rent), mktg=num(F.mktg), opexFixed=num(F.opex);
+    var backbar=service*bb, cogs=retail*cg, card=rev*cf;
+
+    var costs=payroll+ptax+rent+backbar+cogs+card+mktg+opexFixed;
+    var profit=rev-costs;
+
+    // variable-cost rate and fixed block, for the solver
+    var V=(rSvc*(1-p)*c + rRet*rc)*T + rSvc*bb + rRet*cg + cf;
+    var Fx=rent+mktg+opexFixed+(owner+admin)*T;
+    var tp=num(F.target)/100;
+
+    return {rev:rev,retail:retail,service:service,parts:service*p,labor:labor,pl:pl,bb:bb,
+            teamPay:teamPay,owner:owner,admin:admin,payroll:payroll,ptax:ptax,
+            rent:rent,backbar:backbar,cogs:cogs,card:card,mktg:mktg,opexFixed:opexFixed,
+            costs:costs,profit:profit,profitPct:rev?profit/rev:0,
+            V:V,Fx:Fx,tp:tp,T:T,c:c,p:p,rSvc:rSvc,rRet:rRet,rc:rc};
+  }
+
+  function arc(a0,a1){
+    var r=95, t0=(a0-90)*Math.PI/180, t1=(a1-90)*Math.PI/180;
+    if(a1-a0>=359.999){
+      return 'M 0 -'+r+' A '+r+' '+r+' 0 1 1 -0.01 -'+r+' Z';
+    }
+    return 'M 0 0 L '+(r*Math.cos(t0)).toFixed(2)+' '+(r*Math.sin(t0)).toFixed(2)+
+           ' A '+r+' '+r+' 0 '+((a1-a0)>180?1:0)+' 1 '+
+           (r*Math.cos(t1)).toFixed(2)+' '+(r*Math.sin(t1)).toFixed(2)+' Z';
+  }
+
+  function render(){
+    var m=model();
+
+    // live % readouts next to dollar inputs
+    $('sccOwnerSub').textContent='A fixed line, like rent. Not what is left over. That is '+usd(m.owner)+' a month.';
+    var pairs=[['sccOwnerPct',m.owner],['sccAdminPct',m.admin],['sccRentPct',m.rent],
+               ['sccMktgPct',m.mktg],['sccOpexPct',m.opexFixed]];
+    for(var i=0;i<pairs.length;i++){
+      $(pairs[i][0]).textContent = m.rev ? (pairs[i][1]/m.rev*100).toFixed(1)+'%' : '';
+    }
+    $('sccPartsRow').style.display = m.pl ? 'flex' : 'none';
+    $('sccPartsOut').style.display  = m.pl ? 'flex' : 'none';
+    if(m.pl){
+      var bbCost=m.backbar, recov=m.parts-bbCost;
+      $('sccPartsAmt').textContent = usd(m.parts)+' a month billed as parts';
+      $('sccPartsNote').textContent = 'Your color cost '+usd(bbCost)+' this month. '+
+        (recov>=0 ? 'You get all of it back plus '+usd(recov)+', and none of it pays commission.'
+                  : 'That is more than you are billing through, so you are still absorbing '+usd(-recov)+' of it.');
+    }
+    $('sccCommSub').textContent = m.pl
+      ? 'Paid on the labor half only, not the parts.'
+      : 'Percent of service sales paid to the team.';
+
+    // headline
+    var head=$('sccHead');
+    if(!m.rev){
+      head.className='scc-head scc-mid';
+      $('sccProfit').textContent='Put in your revenue';
+      $('sccProfitSub').textContent='One month of everything that came in the door, service and retail together.';
+      $('sccVerdict').textContent='';
+    } else {
+      var cls = m.profitPct>=m.tp ? 'scc-ok' : (m.profitPct>=m.tp*0.5 && m.profitPct>0 ? 'scc-mid':'scc-no');
+      head.className='scc-head '+cls;
+      $('sccProfit').textContent = usd(m.profit)+'  ('+pct(m.profitPct)+')';
+      var gap=m.profit - m.rev*m.tp;
+      $('sccProfitSub').textContent = 'Target is '+usd(m.rev*m.tp)+' at '+(m.tp*100).toFixed(0)+'%. You are '+
+        (gap>=0?'ahead by '+usd(gap):'short by '+usd(-gap))+' a month, '+
+        (gap>=0?usd(gap*12):usd(-gap*12))+' a year.';
+      $('sccVerdict').textContent = m.profit<0
+        ? 'You are losing money every month at these numbers.'
+        : (m.profitPct>=m.tp ? 'This works. Protect it and do not let payroll creep.'
+        : 'The profit you want is not available yet. Move a lever.');
+    }
+
+    // pie
+    var vals=[
+      {k:'team',   v:m.teamPay+m.admin},
+      {k:'owner',  v:m.owner},
+      {k:'rent',   v:m.rent},
+      {k:'product',v:m.backbar+m.cogs},
+      {k:'mktg',   v:m.mktg},
+      {k:'opex',   v:m.ptax+m.card+m.opexFixed},
+      {k:'profit', v:Math.max(0,m.profit)}
+    ];
+    var tot=0; for(var j=0;j<vals.length;j++) tot+=vals[j].v;
+    var svg=$('sccPie'), paths='', acc=0;
+    if(tot>0){
+      for(var k=0;k<vals.length;k++){
+        if(vals[k].v<=0) continue;
+        var f=vals[k].v/tot, a0=acc*360, a1=(acc+f)*360; acc+=f;
+        var col=SL.filter(function(s){return s.k===vals[k].k;})[0].c;
+        paths+='<path d="'+arc(a0,a1)+'" fill="'+col+'"></path>';
+      }
+    }
+    svg.innerHTML='<title id="sccPieT">Where every dollar of revenue goes</title>'+paths;
+
+    var key='';
+    for(var q=0;q<SL.length;q++){
+      var val=vals.filter(function(x){return x.k===SL[q].k;})[0].v;
+      key+='<div class="scc-ki"><span class="scc-kc" style="background:'+SL[q].c+'"></span>'+
+           '<span class="scc-kn">'+SL[q].n+'</span><span class="scc-kv">'+
+           (m.rev?(val/m.rev*100).toFixed(1):'0.0')+'%</span></div>';
+    }
+    if(m.profit<0){
+      key+='<div class="scc-ki scc-klos">You spent '+usd(-m.profit)+' more than you brought in. '+
+           'These add to more than 100% for that reason, and the slices show shares of what you spent, not of revenue.</div>';
+    }
+    $('sccKey').innerHTML=key;
+
+    // ledger
+    function flag(ok,txt){return '<span class="scc-flag '+(ok?'scc-ok':'scc-no')+'">'+txt+'</span>';}
+    function pctOf(v){return m.rev?(v/m.rev*100).toFixed(1)+'%':'0%';}
+
+    // Running balance. Starts at total revenue and drains one line at a time,
+    // so an owner can watch where the money actually goes.
+    var bal=m.rev;
+    function cost(n,v,dot,cls){
+      bal-=v;
+      return '<tr'+(cls?' class="'+cls+'"':'')+'><td>'+
+        (dot?'<span class="scc-dot" style="background:'+dot+'"></span>':'')+n+'</td>'+
+        '<td class="scc-n">'+usd(v)+'</td>'+
+        '<td class="scc-n">'+pctOf(v)+'</td>'+
+        '<td class="scc-n scc-bal'+(bal<0?' scc-neg':'')+'">'+usd(bal)+'</td></tr>';
+    }
+    function income(n,v){
+      return '<tr><td>'+n+'</td><td class="scc-n">'+usd(v)+'</td>'+
+             '<td class="scc-n">'+pctOf(v)+'</td><td class="scc-n"></td></tr>';
+    }
+    function marker(n,cls){
+      return '<tr class="scc-mk'+(cls?' '+cls:'')+'"><td colspan="3">'+n+'</td>'+
+             '<td class="scc-n scc-bal'+(bal<0?' scc-neg':'')+'">'+usd(bal)+'</td></tr>';
+    }
+
+    var payrollPct=m.rev?m.payroll/m.rev:0;
+    var rentPct=m.rev?m.rent/m.rev:0;
+    var ownerPct=m.rev?m.owner/m.rev:0;
+    var retailOfSvc=m.service?m.retail/m.service:0;
+
+    var h='';
+    h+='<tr class="scc-g"><td colspan="4">Money in</td></tr>';
+    h+=income('Service sales',m.service);
+    if(m.pl) h+='<tr class="scc-s"><td>of which parts (color billed through)</td><td class="scc-n">'+
+                usd(m.parts)+'</td><td class="scc-n">'+pctOf(m.parts)+'</td><td class="scc-n"></td></tr>';
+    h+=income('Retail sales'+flag(retailOfSvc>=0.15,(retailOfSvc*100).toFixed(0)+'% of service'),m.retail);
+    h+='<tr class="scc-t"><td>Total revenue</td><td class="scc-n">'+usd(m.rev)+
+       '</td><td class="scc-n">100.0%</td><td class="scc-n scc-bal">'+usd(m.rev)+'</td></tr>';
+
+    h+='<tr class="scc-g"><td colspan="4">Pay the people</td></tr>';
+    h+=cost('Team payroll',m.teamPay,'#2a78d6','scc-s');
+    h+=marker('Left after paying your team','scc-mk-team');
+    h+=cost('Your pay'+flag(ownerPct>=0.10,(ownerPct*100).toFixed(1)+'% vs 10% floor'),m.owner,'#eb6834','scc-s');
+    h+=marker('Left after paying yourself','scc-mk-owner');
+    h+=cost('Manager and admin',m.admin,'#2a78d6','scc-s');
+    // The 45% ceiling measures wages only, so the badge hangs on this row and
+    // payroll tax is deliberately below it.
+    h+='<tr class="scc-t"><td>Payroll subtotal'+flag(payrollPct<=0.45,(payrollPct*100).toFixed(1)+'% vs 45% ceiling')+
+       '</td><td class="scc-n">'+usd(m.payroll)+'</td><td class="scc-n">'+pctOf(m.payroll)+
+       '</td><td class="scc-n scc-bal'+(bal<0?' scc-neg':'')+'">'+usd(bal)+'</td></tr>';
+
+    h+='<tr class="scc-g"><td colspan="4">Everything else it costs to open</td></tr>';
+    h+=cost('Payroll tax and burden',m.ptax,'#eda100');
+    h+=marker('Left after everyone is paid');
+    h+=cost('Rent and CAM'+flag(rentPct<=0.10,(rentPct*100).toFixed(1)+'%'),m.rent,'#4a3aa7');
+    h+=cost('Retail product cost',m.cogs,'#b3a89b');
+    h+=cost('Backbar',m.backbar,'#b3a89b');
+    h+=cost('Card processing',m.card,'#eda100');
+    h+=cost('Marketing',m.mktg,'#e87ba4');
+    h+=cost('Everything else',m.opexFixed,'#eda100');
+
+    h+='<tr class="scc-t scc-pf"><td'+(m.profit<0?' class="scc-neg"':'')+'>PROFIT, what you actually keep</td>'+
+       '<td class="scc-n'+(m.profit<0?' scc-neg':'')+'">'+usd(m.profit)+'</td>'+
+       '<td class="scc-n'+(m.profit<0?' scc-neg':'')+'">'+(m.rev?(m.profitPct*100).toFixed(1)+'%':'0%')+'</td>'+
+       '<td class="scc-n"></td></tr>';
+    $('sccLed').innerHTML=h;
+
+    // the fixes
+    var fx=[], contrib=1-m.V;
+    if(m.profitPct>=m.tp){
+      $('sccFixT').textContent='You are there. Protect it.';
+      fx.push('Every dollar of revenue past this point drops <strong>'+pct(contrib)+'</strong> to the bottom line, because your fixed bills are already covered.');
+      fx.push('Move your reserves the day money lands: <strong>'+usd(m.rev*0.10)+'</strong> for income tax, <strong>'+usd(m.payroll*0.09)+'</strong> for payroll tax, <strong>'+usd(m.retail*0.5)+'</strong> to rebuy retail.');
+      fx.push('Do not spend the profit line on a raise. Raises come out of productivity, not out of margin.');
+    } else {
+      $('sccFixT').textContent='How to close the gap';
+      // 1. revenue needed at current settings
+      var denom=contrib-m.tp;
+      if(denom>0.0001){
+        var need=m.Fx/denom;
+        fx.push('Keep every percentage exactly as it is and grow to <strong>'+usd(need)+' a month</strong>. Your fixed bills stop growing, so the gap closes on its own. That is '+(m.rev?((need/m.rev-1)*100).toFixed(0):'0')+'% more revenue.');
+      } else {
+        fx.push('<strong>No amount of revenue fixes this.</strong> Your commission, payroll tax, product and card fees alone eat '+pct(m.V)+' of every dollar, leaving '+pct(contrib)+'. You cannot get to '+(m.tp*100).toFixed(0)+'% by getting busier. The pay structure has to change.');
+      }
+      // 2. commission needed
+      if(m.labor>0){
+        var cNeed=(m.rev*(1-m.tp)-m.Fx-m.T*(m.retail*m.rc)-m.rSvc*m.rev*(num(F.backbar)/100)-m.rRet*m.rev*(num(F.cogs)/100)-m.rev*(num(F.card)/100))/(m.T*m.labor);
+        if(cNeed>0&&cNeed<m.c) fx.push('Or bring service commission from '+(m.c*100).toFixed(0)+'% down to <strong>'+(cNeed*100).toFixed(1)+'%</strong> at this revenue.');
+      }
+      // 3. parts and labor
+      if(m.service>0&&m.c>0){
+        var K=m.rev*(1-m.tp)-m.Fx-m.T*(m.retail*m.rc)-m.service*m.bb-m.retail*(num(F.cogs)/100)-m.rev*(num(F.card)/100);
+        var pNeed=1-(K/(m.T*m.service*m.c));
+        if(pNeed>m.p&&pNeed<0.5){
+          fx.push((m.pl?'Or raise the parts charge to <strong>':'Or turn on <strong>parts and labor</strong> and bill <strong>')+
+            (pNeed*100).toFixed(0)+'%</strong> of service revenue as parts, about '+usd(m.service*pNeed)+' a month. Same commission rate, same price to the guest, but the color stops paying commission.');
+        } else if(!m.pl){
+          fx.push('Or turn on <strong>parts and labor</strong>. Color is parts, the time in the chair is labor. A mechanic charges both. Most salons absorb the parts and wonder why the margin is thin.');
+        }
+      }
+      // 4. fixed-cost trim
+      var trim=m.rev*m.tp-m.profit;
+      if(trim>0) fx.push('Or cut <strong>'+usd(trim)+' a month</strong> out of rent, marketing and overhead combined. Look here last, not first. Cutting marketing to fix a payroll problem shrinks the salon.');
+    }
+    $('sccFixList').innerHTML='<li>'+fx.join('</li><li>')+'</li>';
+  }
+
+  // wire up
+  for(var key in F){ if(F.hasOwnProperty(key)) $(F[key]).addEventListener('input',render); }
+  $('sccPL').addEventListener('change',render);
+
+  var btns=root.querySelectorAll('.scc-preset');
+  for(var b=0;b<btns.length;b++){
+    btns[b].addEventListener('click',function(){
+      var p=PRESETS[this.getAttribute('data-p')]; if(!p) return;
+      for(var i=0;i<btns.length;i++) btns[i].classList.remove('scc-on');
+      this.classList.add('scc-on');
+      $('sccPresetNote').textContent = NOTES[this.getAttribute('data-p')] || '';
+      $('sccPL').checked=p.pl;
+      $(F.retail).value=p.retail; $(F.parts).value=p.parts; $(F.comm).value=p.comm;
+      $(F.rcomm).value=p.rcomm;   $(F.ptax).value=p.ptax;   $(F.owner).value=p.owner;
+      $(F.admin).value=p.admin;   $(F.rent).value=p.rent;   $(F.mktg).value=p.mktg;
+      $(F.opex).value=p.opex;     $(F.backbar).value=p.backbar; $(F.cogs).value=p.cogs;
+      $(F.card).value=p.card;     $(F.target).value=p.target;
+      render();
+    });
+  }
+
+  btns[0].classList.add('scc-on');
+  $('sccPresetNote').textContent = NOTES.reality;
+  render();
+})();
+
+/* ---------- tab shell ---------- */
+(function(){
+  var app=document.getElementById('sccApp'); if(!app) return;
+  var tabs=[].slice.call(app.querySelectorAll('.scc-tab'));
+  var panes={basics:document.getElementById('sccPaneBasics'),
+             dollar:document.getElementById('sccPaneDollar'),
+             calc:  document.getElementById('sccPaneCalc')};
+
+  function show(key,push){
+    if(!panes[key]) key='basics';
+    tabs.forEach(function(t){
+      var on = t.getAttribute('data-t')===key;
+      t.setAttribute('aria-selected', on?'true':'false');
+      t.setAttribute('tabindex', on?'0':'-1');
+    });
+    Object.keys(panes).forEach(function(k){
+      var on = k===key;
+      panes[k].classList.toggle('scc-live',on);
+      if(on){ panes[k].removeAttribute('hidden'); } else { panes[k].setAttribute('hidden',''); }
+    });
+    if(push && history.replaceState){ history.replaceState(null,'','#'+key); }
+  }
+
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){ show(t.getAttribute('data-t'),true); });
+    t.addEventListener('keydown',function(e){
+      var d = e.key==='ArrowRight'?1 : e.key==='ArrowLeft'?-1 : 0;
+      if(!d) return;
+      e.preventDefault();
+      var n=(i+d+tabs.length)%tabs.length;
+      tabs[n].focus(); show(tabs[n].getAttribute('data-t'),true);
+    });
+  });
+
+  app.addEventListener('click',function(e){
+    var b=e.target.closest ? e.target.closest('.scc-go') : null;
+    if(!b) return;
+    show(b.getAttribute('data-goto'),true);
+    app.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  var h=(location.hash||'').replace('#','');
+  show(panes[h]?h:'basics',false);
+})();
+
+</script>
+
+</div>
+<div class="sd-foot">
+  <span>Built by Nick Mirabella. Nothing you type here is saved or sent anywhere.</span>
+  <a href="https://nickmirabella.com" target="_blank" rel="noopener">nickmirabella.com</a>
+</div>
+</body>
+</html>

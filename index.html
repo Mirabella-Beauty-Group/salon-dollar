@@ -383,6 +383,28 @@
 .scc-ml span:last-child{font-weight:700;}
 .scc-ml.scc-eq span{color:var(--scc-accent); font-weight:700;}
 
+.scc-app .scc-calc-row{
+  border-top:1px solid var(--scc-rule); padding:15px 0;
+}
+.scc-app .scc-calc-row:first-of-type{border-top:0; padding-top:4px;}
+.scc-app .scc-calc-h{
+  font-size:13.5px; font-weight:700; color:var(--scc-ink);
+  display:flex; align-items:center; gap:9px; margin-bottom:7px;
+}
+.scc-app .scc-cdot{width:11px; height:11px; border-radius:3px; flex:none;}
+.scc-app .scc-calc-m{
+  font-size:15px; color:var(--scc-ink2); font-variant-numeric:tabular-nums;
+  line-height:1.7; margin-bottom:5px;
+}
+.scc-app .scc-calc-m b{color:var(--scc-ink); font-weight:700;}
+.scc-app .scc-div{color:var(--scc-ink3); margin:0 5px; font-weight:700;}
+.scc-app .scc-ans{
+  color:var(--scc-accent); font-size:17px; font-weight:700;
+  background:rgba(0,153,204,.09); padding:1px 8px; border-radius:5px;
+}
+.scc-app .scc-calc-n{font-size:13px; color:var(--scc-ink2); line-height:1.5; max-width:62ch;}
+.scc-app .scc-mini-b .scc-ans{font-size:16px; display:inline-block; margin-top:3px;}
+
 .scc-two{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px;}
 .scc-mini{border:1px solid var(--scc-rule); border-radius:8px; padding:15px 17px;}
 .scc-mini-h{font-size:13.5px; font-weight:700; color:var(--scc-ink); margin-bottom:4px;}
@@ -470,56 +492,113 @@
 <div class="scc-pane scc-live" id="sccPaneBasics" role="tabpanel" aria-labelledby="sccTabBasics">
 
   <div class="scc-box">
-    <h3 class="scc-h">A percentage is one cost divided by your month.</h3>
-    <p class="scc-base">That is the whole calculation</p>
+    <h3 class="scc-h">A percentage is one number divided by another.</h3>
+    <p class="scc-base">That is the whole thing</p>
     <div class="scc-mathline">
       <div class="scc-ml"><span>Rent was</span><span>$8,000</span></div>
       <div class="scc-ml"><span>The month was</span><span>$100,000</span></div>
-      <div class="scc-ml scc-eq"><span>8,000 divided by 100,000</span><span>8%</span></div>
+      <div class="scc-ml scc-eq"><span>8,000 &divide; 100,000</span><span>8%</span></div>
     </div>
-    <p class="scc-p">Cost on top, your month on the bottom. That is it. No accounting degree, no software.</p>
+    <p class="scc-p">Cost on top. The month on the bottom. Divide, then move the dot two places right. No accounting degree, no software.</p>
   </div>
 
   <div class="scc-box">
-    <h3 class="scc-h">Why you cannot judge a number in dollars alone</h3>
+    <h3 class="scc-h">Why the dollar alone tells you nothing</h3>
     <div class="scc-two">
       <div class="scc-mini">
-        <div class="scc-mini-h">$8,000 rent on a $100,000 month</div>
-        <div class="scc-mini-b">That is 8%. Comfortable. You have room to pay everybody and still keep something.</div>
+        <div class="scc-mini-h">$8,000 rent, $100,000 month</div>
+        <div class="scc-mini-b">8,000 &divide; 100,000 = <b>8%</b>. Comfortable. Room to pay everyone and still keep something.</div>
       </div>
       <div class="scc-mini">
-        <div class="scc-mini-h">The same $8,000 on a $40,000 month</div>
-        <div class="scc-mini-b">That is 20%. The exact same lease is now eating you alive, and nothing about the building changed.</div>
+        <div class="scc-mini-h">$8,000 rent, $40,000 month</div>
+        <div class="scc-mini-b">8,000 &divide; 40,000 = <b>20%</b>. Same lease, now eating you alive.</div>
       </div>
     </div>
-    <p class="scc-p" style="margin-top:14px;">The rent did not get worse. The month got smaller. A dollar amount with no month behind it is a number with no meaning, which is why every target on the next tab is a percentage.</p>
+    <p class="scc-p" style="margin-top:14px;">The rent never changed. The month got smaller. That is why every target on the next tab is a percentage and not a dollar.</p>
   </div>
 
   <div class="scc-box">
-    <h3 class="scc-h">The one trap that catches everybody</h3>
-    <p class="scc-p">Not every percentage divides by the same number. Get this wrong and your math will never match anybody else's.</p>
+    <h3 class="scc-h">Every number, worked out on one month</h3>
+    <p class="scc-base">A $100,000 month &middot; $85,000 service &middot; $15,000 retail</p>
+    <p class="scc-p">Here is each target with the actual division. Cover the answer and try one yourself.</p>
+
+    <div class="scc-calc-row">
+      <div class="scc-calc-h"><span class="scc-cdot" style="background:#2a78d6"></span>Payroll</div>
+      <div class="scc-calc-m"><b>$45,000</b> paid to people <span class="scc-div">&divide;</span> <b>$100,000</b> month <span class="scc-div">=</span> <b class="scc-ans">45%</b></div>
+      <div class="scc-calc-n">Everyone on the payroll report, you included. Ceiling is 45%. Employer taxes are not in this number, they get their own line.</div>
+    </div>
+
+    <div class="scc-calc-row">
+      <div class="scc-calc-h"><span class="scc-cdot" style="background:#4a3aa7"></span>Rent</div>
+      <div class="scc-calc-m"><b>$8,000</b> rent <span class="scc-div">&divide;</span> <b>$100,000</b> month <span class="scc-div">=</span> <b class="scc-ans">8%</b></div>
+      <div class="scc-calc-n">Ceiling is 10%. Rent is fixed, so the only way this number falls is if the month gets bigger.</div>
+    </div>
+
+    <div class="scc-calc-row">
+      <div class="scc-calc-h"><span class="scc-cdot" style="background:#eb6834"></span>Your own pay</div>
+      <div class="scc-calc-m"><b>$10,000</b> to you <span class="scc-div">&divide;</span> <b>$100,000</b> month <span class="scc-div">=</span> <b class="scc-ans">10%</b></div>
+      <div class="scc-calc-n">Floor is 10%. This is ten of the 45 above, not an extra ten on top. You are on the payroll.</div>
+    </div>
+
+    <div class="scc-calc-row">
+      <div class="scc-calc-h"><span class="scc-cdot" style="background:#1baf7a"></span>Profit</div>
+      <div class="scc-calc-m"><b>$20,000</b> left <span class="scc-div">&divide;</span> <b>$100,000</b> month <span class="scc-div">=</span> <b class="scc-ans">20%</b></div>
+      <div class="scc-calc-n">Floor is 20%. This is what survives after every other line is paid.</div>
+    </div>
+
+    <div class="scc-calc-row">
+      <div class="scc-calc-h"><span class="scc-cdot" style="background:#b3a89b"></span>Everything else</div>
+      <div class="scc-calc-m"><b>$25,000</b> of bills <span class="scc-div">&divide;</span> <b>$100,000</b> month <span class="scc-div">=</span> <b class="scc-ans">25%</b></div>
+      <div class="scc-calc-n">Product, card fees, insurance, utilities, software, marketing, payroll taxes, repairs. No target of its own. It is whatever is left once the other three are right.</div>
+    </div>
+
+    <p class="scc-p" style="margin-top:16px;"><b>45 + 10 + 25 + 20 = 100.</b> That is the whole month. There is never more than 100% to hand out, so every dollar you add to one line comes off another.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Retail is the one that trips everybody, including me</h3>
+    <p class="scc-p">There are <b>two</b> retail percentages. They are both correct. They answer different questions, and mixing them up is why your number never matches anybody else's.</p>
+    <p class="scc-base">Say you did $80,000 service and $20,000 retail</p>
+
     <div class="scc-two">
       <div class="scc-mini">
-        <div class="scc-mini-h">Divide by TOTAL revenue</div>
-        <div class="scc-mini-b">Payroll, rent, your pay, manager pay, and profit. Everything that came in the door goes on the bottom.</div>
+        <div class="scc-mini-h">How much of my business is retail?</div>
+        <div class="scc-mini-b"><b>$20,000 &divide; $100,000</b> total<br><b class="scc-ans">20%</b> of everything you sold was product.</div>
       </div>
       <div class="scc-mini">
-        <div class="scc-mini-h">Divide by SERVICE sales only</div>
-        <div class="scc-mini-b">Retail and backbar. Leave retail sales out of the bottom, or you are measuring retail against itself.</div>
+        <div class="scc-mini-h">How well is my team selling retail?</div>
+        <div class="scc-mini-b"><b>$20,000 &divide; $80,000</b> service<br><b class="scc-ans">25%</b> retail for every dollar of service.</div>
       </div>
     </div>
-    <p class="scc-p" style="margin-top:14px;">Use your whole month on either of these and the answer comes out too low, because the whole month already has the retail sitting in the bottom. On a $85,000 service and $15,000 retail month, retail is <b>17.6%</b> against service but only <b>15.0%</b> against the whole month. Backbar drops from <b>5.0%</b> to <b>4.2%</b>.</p>
-    <p class="scc-p">That is the same mistake pointing two different ways. Too low <b>punishes your retail</b>, where you want a big number, and it <b>flatters your backbar</b>, where a small number looks fine. You end up chasing retail you already have and missing a product leak you do not.</p>
+
+    <p class="scc-p" style="margin-top:14px;"><b>The second one is the benchmark.</b> Target is 15% or better, so 25% is strong. It is measured against service because retail rides along with service visits. You are asking: for every $100 of service we did, how much product went out the door with it?</p>
+    <p class="scc-p">Put retail on the bottom too and you are partly measuring retail against itself, which mutes the answer. On these numbers it drops from 25% to 20% and a salon that is doing well starts to look average.</p>
+    <p class="scc-p"><b>Backbar works the same way.</b> Divide it by service, not by the whole month. $4,250 of colour &divide; $85,000 of service = <b>5%</b>, right on target. Divide by the whole $100,000 instead and you get 4.2%, which looks better than it is and hides a leak.</p>
   </div>
 
   <div class="scc-box">
-    <h3 class="scc-h">How to pull your own numbers</h3>
-    <p class="scc-p">Five minutes, once a month. You need four things and they are all in your booking software and your bank.</p>
+    <h3 class="scc-h">Which number goes on the bottom</h3>
+    <div class="scc-two">
+      <div class="scc-mini">
+        <div class="scc-mini-h">Divide by the WHOLE month</div>
+        <div class="scc-mini-b">Payroll &middot; rent &middot; your pay &middot; manager pay &middot; profit &middot; income tax reserve</div>
+      </div>
+      <div class="scc-mini">
+        <div class="scc-mini-h">Divide by SERVICE only</div>
+        <div class="scc-mini-b">Retail-to-service &middot; backbar</div>
+      </div>
+    </div>
+    <p class="scc-p" style="margin-top:14px;">Two more have their own bottom number entirely. Payroll tax divides by <b>payroll</b>, not revenue. Retail replenishment divides by <b>retail sales</b>. When a number looks wrong, check the bottom of the fraction first.</p>
+  </div>
+
+  <div class="scc-box">
+    <h3 class="scc-h">Pull your own four numbers</h3>
+    <p class="scc-p">Five minutes, once a month, all of it in your booking software and your bank.</p>
     <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;">
       <li class="scc-p" style="margin:0;"><b>Total revenue.</b> Everything that came in. Service plus retail.</li>
-      <li class="scc-p" style="margin:0;"><b>Total payroll.</b> Commissions, hourly, salary, bonuses, and your own pay. All of it, one number.</li>
+      <li class="scc-p" style="margin:0;"><b>Total payroll.</b> Commissions, hourly, salary, front desk, bonuses, your own pay. One number.</li>
       <li class="scc-p" style="margin:0;"><b>Your fixed bills.</b> Rent, insurance, utilities, software, marketing.</li>
-      <li class="scc-p" style="margin:0;"><b>Product.</b> What you paid for backbar and for the retail you sold.</li>
+      <li class="scc-p" style="margin:0;"><b>Product.</b> What backbar cost you, and what the retail you sold cost you.</li>
     </ol>
     <p class="scc-p" style="margin-top:14px;">Use last month, not a good month. The point is to see what is actually happening.</p>
   </div>
@@ -532,6 +611,7 @@
     <button type="button" class="scc-go" data-goto="dollar">The Salon Dollar</button>
   </div>
 </div>
+
 <div class="scc-pane" id="sccPaneDollar" role="tabpanel" aria-labelledby="sccTabDollar" hidden>
 
   <div class="scc-box">

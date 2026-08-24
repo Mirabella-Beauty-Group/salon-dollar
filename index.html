@@ -228,6 +228,7 @@
 .scc-calc .scc-kc{width:10px; height:10px; border-radius:2px; flex:none;}
 .scc-calc .scc-kn{flex:1 1 auto; color:var(--scc-ink2);}
 .scc-calc .scc-kv{font-weight:700; font-variant-numeric:tabular-nums; color:var(--scc-ink);}
+.scc-calc .scc-kv.scc-negtxt{color:var(--scc-bad);}
 .scc-calc .scc-ki.scc-klos{
   display:block; color:var(--scc-bad); font-weight:600; font-size:11.5px;
   line-height:1.45; margin-top:5px; padding-top:7px; border-top:1px solid var(--scc-rule);
@@ -626,12 +627,11 @@
           <path fill="#b3a89b" d="M 0 0 L -30.90 95.11 A 100 100 0 0 1 -95.11 -30.90 Z"></path>
           <path fill="#1baf7a" d="M 0 0 L -95.11 -30.90 A 100 100 0 0 1 -0.00 -100.00 Z"></path>
         </g>
-        <path class="scc-lead" d="M-89.1 45.4 L-101.57 51.75 L-115.57 51.75"></path>
         <g>
           <text class="scc-pn" x="61.24" y="-10" fill="#fff">45%</text>
           <text class="scc-ps" x="61.24" y="7" fill="#fff">Payroll</text>
-          <text class="scc-pn" x="-125.6" y="47" fill="#1a1714" text-anchor="end">25%</text>
-          <text class="scc-ps" x="-125.6" y="62" fill="#5d554b" text-anchor="end">Everything else</text>
+          <text class="scc-pn" x="-118" y="52" fill="#1a1714" text-anchor="end">25%</text>
+          <text class="scc-ps" x="-118" y="68" fill="#5d554b" text-anchor="end">Everything else</text>
           <text class="scc-pn" x="-35.27" y="-53" fill="#fff">20%</text>
           <text class="scc-ps" x="-35.27" y="-36" fill="#fff">Profit</text>
           <text class="scc-pn" x="0" y="122" fill="#1a1714">10%</text>
@@ -776,30 +776,29 @@
         <div class="scc-rf"><input class="scc-in" type="number" id="sccRetail" value="15" min="0" max="60" step="0.5"><span class="scc-unit">%</span></div>
       </div>
 
-      <label class="scc-tog" for="sccPL">
-        <input type="checkbox" id="sccPL">
-        <span><span class="scc-tog-t">Bill parts and labor separately</span>
-        <span class="scc-tog-s">Charge the color you actually used as parts, then pay commission on the labor only. A mechanic bills both. Most salons absorb the parts and wonder why the margin is thin.</span></span>
-      </label>
-      <div class="scc-row" id="sccPartsRow" style="display:none;">
-        <div class="scc-rl"><span class="scc-rn">How much of it you bill back</span><span class="scc-rs">What you charge the guest for the colour, against what it cost you. <b>100%</b> just gets your cost back. <b>200%</b> is the standard charge. <b>300%</b> is for a transformation or a colour correction. It is revenue, and it never pays commission.</span></div>
-        <div class="scc-rf"><input class="scc-in" type="number" id="sccParts" value="200" min="0" max="400" step="10"><span class="scc-unit">%</span></div>
-      </div>
-      <div class="scc-row" id="sccPartsOut" style="display:none;">
-        <div class="scc-rl"><span class="scc-rn" id="sccPartsAmt">&nbsp;</span><span class="scc-rs" id="sccPartsNote">&nbsp;</span></div>
+      <div class="scc-note">
+        <b>Doing parts and labour?</b> Then it is already in the number above. If colour costs you
+        10 cents a gram and you charge the guest 20, that charge is revenue and it is sitting in your
+        month. The 10 cents is your product cost, entered further down. The client is covering your
+        cost of goods, which is the whole point, and it nets out around 50% margin the same way a
+        retail product does. Nothing extra to enter here.
       </div>
 
       <div class="scc-grp">What you pay people</div>
       <div class="scc-row">
-        <div class="scc-rl"><span class="scc-rn">Total payroll</span><span class="scc-rs" id="sccCommSub">Everything that went out to a human. Commissions, hourly, salary, front desk, bonuses, and your own pay. Employer taxes go on the next line, not this one.</span></div>
+        <div class="scc-rl"><span class="scc-rn">Payroll on service</span><span class="scc-rs" id="sccCommSub">What you pay the team out of service work. Commissions, hourly, salary, front desk, bonuses, and your own pay. Employer taxes go on the next line.</span></div>
         <div class="scc-rf"><input class="scc-in" type="number" id="sccComm" value="45" min="0" max="90" step="0.5"><span class="scc-unit">%</span></div>
+      </div>
+      <div class="scc-row">
+        <div class="scc-rl"><span class="scc-rn">Commission on retail</span><span class="scc-rs">What the team earns on a product sale. Much smaller than service commission, which is why retail is your best margin.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccRComm" value="10" min="0" max="40" step="1"><span class="scc-unit">%</span></div>
       </div>
       <div class="scc-row">
         <div class="scc-rl"><span class="scc-rn">Employer burden</span><span class="scc-rs">On top of every payroll dollar. FICA, unemployment, workers comp. Kept off the line above so your payroll number still matches the 45% ceiling.</span></div>
         <div class="scc-rf"><input class="scc-in" type="number" id="sccPTax" value="15" min="0" max="30" step="0.5"><span class="scc-unit">%</span></div>
       </div>
       <div class="scc-row">
-        <div class="scc-rl"><span class="scc-rn">Your pay, per year</span><span class="scc-rs" id="sccOwnerSub">A fixed line, like rent. Not what is left over.</span></div>
+        <div class="scc-rl"><span class="scc-rn">Your pay, per year</span><span class="scc-rs" id="sccOwnerSub">This comes OUT of the payroll number above, it is not added on top. Changing it moves who gets paid, not what the salon keeps.</span></div>
         <div class="scc-rf"><input class="scc-in" type="number" id="sccOwner" value="120000" min="0" step="5000"><span class="scc-live" id="sccOwnerPct"></span></div>
       </div>
 
@@ -880,18 +879,18 @@
   var $=function(id){return document.getElementById(id);};
   var root=$('sccCalc'); if(!root) return;
 
-  var F={rev:'sccRev',target:'sccTarget',retail:'sccRetail',parts:'sccParts',comm:'sccComm',
-         ptax:'sccPTax',owner:'sccOwner',rent:'sccRent',
+  var F={rev:'sccRev',target:'sccTarget',retail:'sccRetail',comm:'sccComm',
+         rcomm:'sccRComm',ptax:'sccPTax',owner:'sccOwner',rent:'sccRent',
          mktg:'sccMktg',opex:'sccOpex',backbar:'sccBackbar',cogs:'sccCogs',card:'sccCard'};
 
   var PRESETS={
-    reality:   {comm:55,parts:200,pl:false,retail:15,ptax:15,owner:120000,
+    reality:   {comm:55,rcomm:10,retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    partslabor:{comm:55,parts:200,pl:true, retail:15,ptax:15,owner:120000,
+    partslabor:{comm:55,rcomm:10,retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    target:    {comm:45,parts:200,pl:true, retail:15,ptax:15,owner:120000,
+    target:    {comm:45,rcomm:10,retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:4000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    booth:     {comm:42,parts:300,pl:true, retail:22,ptax:15,owner:144000,
+    booth:     {comm:42,rcomm:12,retail:22,ptax:15,owner:144000,
                 rent:7000,mktg:5000,opex:5500,backbar:3800,cogs:50,card:2.5,target:20}
   };
 
@@ -912,13 +911,19 @@
     {k:'profit', n:'Profit',             c:'#1baf7a'}
   ];
 
-  function num(id){var v=parseFloat($(id).value); return isNaN(v)?0:v;}
+  function num(id){
+    var el=$(id), v=parseFloat(el.value);
+    if(isNaN(v)) return 0;
+    var lo=el.min===''?-Infinity:parseFloat(el.min);
+    var hi=el.max===''? Infinity:parseFloat(el.max);
+    return Math.min(hi, Math.max(lo, v));
+  }
   function usd(v){return (v<0?'-$':'$')+Math.round(Math.abs(v)).toLocaleString('en-US');}
   function pct(v){return (v*100).toFixed(1)+'%';}
 
   function model(){
     // Base revenue is what the salon collects today, service plus retail.
-    var baseRev=num(F.rev), pl=$('sccPL').checked;
+    var baseRev=num(F.rev);
     var rRet=num(F.retail)/100;
     var retail=baseRev*rRet, service=baseRev-retail;
 
@@ -926,14 +931,15 @@
     // back to the guest. It is new revenue, and it never pays commission, so
     // it lands straight on the bottom line minus card fees.
     var backbar=num(F.backbar);
-    var recoup = pl ? num(F.parts)/100 : 0;
-    var parts  = backbar*recoup;
-    var rev    = baseRev + parts;
+    var rev = baseRev;
 
     // One payroll number: everything paid to a human, owner pay included.
     // Burden sits outside it so this stays comparable to the 45% ceiling.
-    var P=num(F.comm)/100, b=num(F.ptax)/100;
-    var payroll = baseRev*P;
+    // Service and retail carry very different labour. Charging one blended
+    // rate against both made every retail dollar lose money, which is the
+    // opposite of what retail actually does.
+    var P=num(F.comm)/100, rc=num(F.rcomm)/100, b=num(F.ptax)/100;
+    var payroll = service*P + retail*rc;
     var burden  = payroll*b;
     var owner=num(F.owner)/12;
 
@@ -947,14 +953,15 @@
     // Solver pieces. M is what one dollar of base revenue contributes once the
     // costs that scale with it are out. FxD is the fixed block, with the parts
     // recovery credited back against it.
-    var M   = 1 - P*(1+b) - rRet*cg - cf;
-    var FxD = rent+backbar+mktg+opexFixed - parts*(1-cf);
+    var bbRate = service ? backbar/service : 0;
+    var M   = 1 - ((1-rRet)*P + rRet*rc)*(1+b) - rRet*cg - cf - (1-rRet)*bbRate;
+    var FxD = rent+mktg+opexFixed;
     var tp  = num(F.target)/100;
 
-    return {baseRev:baseRev, rev:rev, retail:retail, service:service, pl:pl,
-            backbar:backbar, recoup:recoup, parts:parts, netProduct:backbar-parts,
+    return {baseRev:baseRev, rev:rev, retail:retail, service:service,
+            backbar:backbar, bbRate:(service?backbar/service:0),
             payroll:payroll, burden:burden, owner:owner,
-            P:P, b:b, rRet:rRet, cg:cg, cf:cf,
+            P:P, rc:rc, b:b, rRet:rRet, cg:cg, cf:cf,
             cogs:cogs, card:card, rent:rent, mktg:mktg, opexFixed:opexFixed,
             costs:costs, profit:profit, profitPct:rev?profit/rev:0,
             M:M, FxD:FxD, tp:tp};
@@ -974,28 +981,16 @@
     var m=model();
 
     // live % readouts next to dollar inputs
-    $('sccOwnerSub').textContent='A fixed line, like rent. Not what is left over. That is '+usd(m.owner)+' a month, and it is part of the payroll number above.';
+    $('sccOwnerSub').textContent='This comes OUT of the payroll number above, not on top of it. That is '+usd(m.owner)+' a month'+(m.owner>m.payroll?'. Careful: that is more than your whole payroll figure.':'.');
     $('sccBackbarPct').textContent = m.service ? (m.backbar/m.service*100).toFixed(1)+'%' : '';
     var payAll = m.rev ? m.payroll/m.rev*100 : 0;
     $('sccCommSub').textContent='Everything that went out to a human. Commissions, hourly, salary, front desk, bonuses, and your own pay. That is '+usd(m.payroll)+' a month'+
-      (m.pl && m.parts>0 ? ', which is '+payAll.toFixed(1)+'% of total revenue once the parts you bill back are counted.' : '.');
+      '.';
     var pairs=[['sccOwnerPct',m.owner],['sccRentPct',m.rent],
                ['sccMktgPct',m.mktg],['sccOpexPct',m.opexFixed]];
     for(var i=0;i<pairs.length;i++){
       $(pairs[i][0]).textContent = m.rev ? (pairs[i][1]/m.rev*100).toFixed(1)+'%' : '';
     }
-    $('sccPartsRow').style.display = m.pl ? 'flex' : 'none';
-    $('sccPartsOut').style.display  = m.pl ? 'flex' : 'none';
-    if(m.pl){
-      $('sccPartsAmt').textContent = usd(m.parts)+' a month billed back as parts';
-      $('sccPartsNote').textContent = m.netProduct>0
-        ? 'Your product cost '+usd(m.backbar)+'. You are still absorbing '+usd(m.netProduct)+' of it.'
-        : (m.netProduct===0
-           ? 'Your product cost '+usd(m.backbar)+'. You get all of it back, and none of it pays commission.'
-           : 'Your product cost '+usd(m.backbar)+'. You get all of it back plus '+usd(-m.netProduct)+', and none of it pays commission.');
-    }
-
-    // headline
     var head=$('sccHead');
     if(!m.baseRev){
       head.className='scc-head scc-mid';
@@ -1003,7 +998,7 @@
       $('sccProfitSub').textContent='One month of everything that came in the door, service and retail together.';
       $('sccVerdict').textContent='';
     } else {
-      var cls = m.profitPct>=m.tp ? 'scc-ok' : (m.profitPct>=m.tp*0.5 && m.profitPct>0 ? 'scc-mid':'scc-no');
+      var cls = m.profitPct>=m.tp-0.0005 ? 'scc-ok' : (m.profitPct>=m.tp*0.5 && m.profitPct>0 ? 'scc-mid':'scc-no');
       head.className='scc-head '+cls;
       $('sccProfit').textContent = usd(m.profit)+'  ('+pct(m.profitPct)+')';
       var gap=m.profit - m.rev*m.tp;
@@ -1018,8 +1013,8 @@
 
     // pie
     var vals=[
-      {k:'team',   v:Math.max(0,m.payroll-m.owner)},
-      {k:'owner',  v:m.owner},
+      {k:'team',   v:Math.max(0,m.payroll-Math.min(m.owner,m.payroll))},
+      {k:'owner',  v:Math.min(m.owner,m.payroll)},
       {k:'rent',   v:m.rent},
       {k:'product',v:m.backbar+m.cogs},
       {k:'mktg',   v:m.mktg},
@@ -1041,9 +1036,12 @@
     var key='';
     for(var q=0;q<SL.length;q++){
       var val=vals.filter(function(x){return x.k===SL[q].k;})[0].v;
+      // profit prints its true value, loss included, rather than the clamped
+      // slice value, so the legend can never read 0.0% on a losing month
+      var shown = SL[q].k==='profit' ? m.profit : val;
       key+='<div class="scc-ki"><span class="scc-kc" style="background:'+SL[q].c+'"></span>'+
-           '<span class="scc-kn">'+SL[q].n+'</span><span class="scc-kv">'+
-           (m.rev?(val/m.rev*100).toFixed(1):'0.0')+'%</span></div>';
+           '<span class="scc-kn">'+SL[q].n+'</span><span class="scc-kv'+(shown<0?' scc-negtxt':'')+'">'+
+           (m.rev?(shown/m.rev*100).toFixed(1):'0.0')+'%</span></div>';
     }
     if(m.profit<0){
       key+='<div class="scc-ki scc-klos">You spent '+usd(-m.profit)+' more than you brought in. '+
@@ -1083,15 +1081,15 @@
     var h='';
     h+='<tr class="scc-g"><td colspan="4">Money in</td></tr>';
     h+=income('Service sales',m.service);
-    h+=income('Retail sales'+flag(retailOfSvc>=0.15,(retailOfSvc*100).toFixed(0)+'% of service'),m.retail);
-    if(m.pl) h+=income('Parts billed back',m.parts);
+    h+=income('Retail sales'+(m.service>0?flag(retailOfSvc>=0.15,(retailOfSvc*100).toFixed(0)+'% of service'):''),m.retail);
     h+='<tr class="scc-t"><td>Total revenue</td><td class="scc-n">'+usd(m.rev)+
        '</td><td class="scc-n">100.0%</td><td class="scc-n scc-bal">'+usd(m.rev)+'</td></tr>';
 
     h+='<tr class="scc-g"><td colspan="4">Pay the people</td></tr>';
-    h+=cost('Team payroll',Math.max(0,m.payroll-m.owner),'#2a78d6','scc-s');
+    var ownerShown=Math.min(m.owner,m.payroll);
+    h+=cost('Team payroll',m.payroll-ownerShown,'#2a78d6','scc-s');
     h+=marker('Left after paying your team','scc-mk-team');
-    h+=cost('Your pay'+flag(ownerPct>=0.10,(ownerPct*100).toFixed(1)+'% vs 10% floor'),m.owner,'#eb6834','scc-s');
+    h+=cost('Your pay'+flag(ownerPct>=0.10,(ownerPct*100).toFixed(1)+'% vs 10% floor')+(m.owner>m.payroll?flag(false,'exceeds payroll'):''),ownerShown,'#eb6834','scc-s');
     h+=marker('Left after paying yourself','scc-mk-owner');
     h+='<tr class="scc-t"><td>Payroll subtotal'+flag(payrollPct<=0.45,(payrollPct*100).toFixed(1)+'% vs 45%')+
        '</td><td class="scc-n">'+usd(m.payroll)+'</td><td class="scc-n">'+pctOf(m.payroll)+
@@ -1115,10 +1113,10 @@
 
     // the fixes
     var fx=[], contrib=m.M;
-    if(m.baseRev && m.profitPct>=m.tp){
+    if(m.baseRev && m.profitPct>=m.tp-0.0005){
       $('sccFixT').textContent='You are there. Protect it.';
       fx.push('Every extra dollar of service and retail drops <strong>'+pct(contrib)+'</strong> to the bottom line, because your fixed bills are already covered.');
-      fx.push('Move your reserves the day money lands: <strong>'+usd(m.rev*0.10)+'</strong> for income tax, <strong>'+usd(m.payroll*0.09)+'</strong> for payroll tax, <strong>'+usd(m.retail*0.5)+'</strong> to rebuy retail.');
+      fx.push('Move your reserves the day money lands: <strong>'+usd(m.rev*0.10)+'</strong> for income tax, <strong>'+usd(m.burden)+'</strong> for payroll tax at the burden you entered, <strong>'+usd(m.retail*0.5)+'</strong> to rebuy retail.');
       fx.push('Do not spend the profit line on a raise. Raises come out of productivity, not out of margin.');
     } else if(m.baseRev){
       $('sccFixT').textContent='How to close the gap';
@@ -1126,8 +1124,8 @@
       // 1. revenue needed, holding every percentage where it is
       var denom=contrib-m.tp;
       if(denom>0.0001){
-        var need=(m.FxD + m.tp*m.parts)/denom;
-        if(need>m.baseRev){
+        var need=Math.ceil(m.FxD/denom/100)*100;   // round UP to a typable figure that clears the target
+        if(need>m.baseRev && need<=m.baseRev*10){
           fx.push('Keep every percentage exactly as it is and grow to <strong>'+usd(need)+' a month</strong> in service and retail. Your fixed bills stop growing, so the gap closes on its own. That is '+((need/m.baseRev-1)*100).toFixed(0)+'% more.');
         }
       } else {
@@ -1136,33 +1134,22 @@
 
       // 2. payroll percentage needed at this revenue
       if(m.baseRev>0 && (1+m.b)>0){
-        var rhs=(m.tp*m.baseRev + m.tp*m.parts + m.FxD)/m.baseRev;
-        var pNeed=(1 - m.rRet*m.cg - m.cf - rhs)/(1+m.b);
+        var rhs=(m.tp*m.baseRev + m.FxD)/m.baseRev;
+        var pNeed=((1 - m.rRet*m.cg - m.cf - (1-m.rRet)*m.bbRate - rhs)/(1+m.b) - m.rRet*m.rc)/(1-m.rRet);
         if(pNeed>0 && pNeed<m.P){
-          fx.push('Or bring total payroll from '+(m.P*100).toFixed(1)+'% down to <strong>'+(pNeed*100).toFixed(1)+'%</strong>, about '+usd(m.baseRev*pNeed)+' a month instead of '+usd(m.payroll)+'.');
-        }
-      }
-
-      // 3. bill more of the product back
-      if(m.backbar>0){
-        var FxD0=m.rent+m.backbar+m.mktg+m.opexFixed;
-        var d2=1-m.cf-m.tp;
-        if(d2>0.0001){
-          var partsNeed=(m.tp*m.baseRev + FxD0 - m.baseRev*m.M)/d2;
-          var recoupNeed=partsNeed/m.backbar;
-          if(recoupNeed>m.recoup && recoupNeed<=4){
-            fx.push((m.pl?'Or bill back <strong>':'Or turn on <strong>parts and labor</strong> and bill back <strong>')+
-              (recoupNeed*100).toFixed(0)+'%</strong> of what your product costs, about '+usd(partsNeed)+' a month. It is revenue that never pays commission.');
-          }
-        }
-        if(!m.pl){
-          fx.push('At the very least, turn on <strong>parts and labor</strong> and recover the '+usd(m.backbar)+' your colour cost you. A mechanic bills the part and the labour. Most salons absorb the part and wonder why the margin is thin.');
+          var pShown=Math.floor(pNeed*1000)/1000;               // round DOWN so typing it clears the bar
+          fx.push('Or bring payroll on service from '+(m.P*100).toFixed(1)+'% down to <strong>'+(pShown*100).toFixed(1)+'%</strong>, about '+usd(m.service*pShown)+' a month instead of '+usd(m.payroll)+'.');
         }
       }
 
       // 4. trim fixed costs, last resort
       var trim=m.rev*m.tp-m.profit;
-      if(trim>0) fx.push('Or cut <strong>'+usd(trim)+' a month</strong> out of rent, marketing and overhead combined. Look here last, not first. Cutting marketing to fix a payroll problem shrinks the salon.');
+      var available=m.rent+m.mktg+m.opexFixed;
+      if(trim>0 && trim<=available){
+        fx.push('Or cut <strong>'+usd(trim)+' a month</strong> out of rent, marketing and overhead, which run '+usd(available)+' between them. Look here last, not first. Cutting marketing to fix a payroll problem shrinks the salon.');
+      } else if(trim>0){
+        fx.push('Cutting overhead cannot get you there. Rent, marketing and everything else only come to <strong>'+usd(available)+'</strong>, and you are '+usd(trim)+' short. Even at zero rent and zero marketing the gap stays open, so the fix has to come from pay or from price.');
+      }
     } else {
       $('sccFixT').textContent='How to close the gap';
       fx.push('Put your revenue in above and this fills with the moves that would actually get you there.');
@@ -1172,7 +1159,6 @@
 
   // wire up
   for(var key in F){ if(F.hasOwnProperty(key)) $(F[key]).addEventListener('input',render); }
-  $('sccPL').addEventListener('change',render);
 
   var btns=root.querySelectorAll('.scc-preset');
   function applyPreset(key,btn){
@@ -1180,8 +1166,7 @@
       for(var i=0;i<btns.length;i++) btns[i].classList.remove('scc-on');
       if(btn) btn.classList.add('scc-on');
       $('sccPresetNote').textContent = NOTES[key] || '';
-      $('sccPL').checked=p.pl;
-      $(F.retail).value=p.retail; $(F.parts).value=p.parts; $(F.comm).value=p.comm;
+      $(F.retail).value=p.retail; $(F.comm).value=p.comm; $(F.rcomm).value=p.rcomm;
       $(F.ptax).value=p.ptax;     $(F.owner).value=p.owner;
       $(F.rent).value=p.rent;     $(F.mktg).value=p.mktg;
       $(F.opex).value=p.opex;     $(F.backbar).value=p.backbar; $(F.cogs).value=p.cogs;

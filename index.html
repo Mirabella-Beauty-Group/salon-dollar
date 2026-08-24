@@ -589,7 +589,7 @@
         <thead><tr><th>Move this</th><th>This much</th><th>Out of</th></tr></thead>
         <tbody>
           <tr><td>Income tax</td><td>10%</td><td>Income</td></tr>
-          <tr><td>Payroll tax</td><td>8 to 10%</td><td>Payroll, not revenue</td></tr>
+          <tr><td>Payroll tax and burden</td><td>10 to 15%</td><td>Payroll, not revenue</td></tr>
           <tr><td>Retail replenishment</td><td>50%</td><td>Retail sales</td></tr>
           <tr><td>Cash cushion</td><td>3 months</td><td>Operating expenses</td></tr>
         </tbody>
@@ -620,8 +620,8 @@
           <tr><td>Payroll</td><td>&le; 45%</td><td>Total income</td><td>Break it and raises become impossible.</td></tr>
           <tr><td>Rent</td><td>&le; 10%</td><td>Total income</td><td>The fix is revenue, not a smaller space.</td></tr>
           <tr><td>Your pay</td><td>&ge; 10%</td><td>Total income</td><td>Sits inside payroll. Zero here means a hobby.</td></tr>
-          <tr><td>Manager and admin</td><td>&le; 10%</td><td>Total income</td><td>Sits inside payroll. The role has to pay for itself.</td></tr>
-          <tr><td>Net margin</td><td>&ge; 20%</td><td>Total income</td><td>Downstream. Fix what is bleeding into it.</td></tr>
+          <tr><td>Manager and admin</td><td>&le; 10%</td><td>Total income</td><td>Counted inside the payroll number, not on top of it. The role has to pay for itself.</td></tr>
+          <tr><td>Net margin</td><td>&ge; 20%</td><td>Total income</td><td>Downstream, so fix what is bleeding into it. 18% is survivable, 20% is the number to build toward.</td></tr>
           <tr><td>Retail</td><td>&ge; 15%</td><td>Service revenue</td><td>Close to pure margin. The biggest ignored lever.</td></tr>
           <tr><td>Backbar</td><td>&asymp; 5%</td><td>Service revenue</td><td>Over is a leak. Way under is a shortage coming.</td></tr>
           <tr><td>Utilization</td><td>&ge; 80%</td><td>Bookable hours</td><td>Below 70%, no raises and no hires.</td></tr>
@@ -812,7 +812,7 @@
     reality:'Where a lot of salons actually sit. Total payroll at 55% of revenue once you count everyone, and the house eats the colour. Nothing is billed back.',
     partslabor:'The exact same salon with ONE change. The colour is billed back to the guest as parts, so you recover what the product cost you. Same team, same pay, same guests. Compare the profit to the first tab.',
     target:'Total payroll right on the 45% ceiling, with the colour billed back. Worth seeing: even with payroll exactly where it belongs, 20% profit still is not automatic. The rest of the building has to be right too.',
-    booth:'Payroll at 42%, retail at 22% of revenue instead of 15, no salaried admin, cheaper lease, and product billed back at 150%. Shows how much of the work retail and overhead quietly do.'
+    booth:'Payroll down at 42%, retail at 22% of revenue instead of 15, a cheaper lease, and product billed back at 150%. Shows how much of the work retail and overhead quietly do.'
   };
 
   var SL=[
@@ -889,7 +889,9 @@
     // live % readouts next to dollar inputs
     $('sccOwnerSub').textContent='A fixed line, like rent. Not what is left over. That is '+usd(m.owner)+' a month, and it is part of the payroll number above.';
     $('sccBackbarPct').textContent = m.service ? (m.backbar/m.service*100).toFixed(1)+'%' : '';
-    $('sccCommSub').textContent='Everything that went out to a human. Commissions, hourly, salary, front desk, bonuses, and your own pay. That is '+usd(m.payroll)+' a month.';
+    var payAll = m.rev ? m.payroll/m.rev*100 : 0;
+    $('sccCommSub').textContent='Everything that went out to a human. Commissions, hourly, salary, front desk, bonuses, and your own pay. That is '+usd(m.payroll)+' a month'+
+      (m.pl && m.parts>0 ? ', which is '+payAll.toFixed(1)+'% of total revenue once the parts you bill back are counted.' : '.');
     var pairs=[['sccOwnerPct',m.owner],['sccRentPct',m.rent],
                ['sccMktgPct',m.mktg],['sccOpexPct',m.opexFixed]];
     for(var i=0;i<pairs.length;i++){

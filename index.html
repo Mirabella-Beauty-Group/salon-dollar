@@ -1085,12 +1085,11 @@
   $('sccPL').addEventListener('change',render);
 
   var btns=root.querySelectorAll('.scc-preset');
-  for(var b=0;b<btns.length;b++){
-    btns[b].addEventListener('click',function(){
-      var p=PRESETS[this.getAttribute('data-p')]; if(!p) return;
+  function applyPreset(key,btn){
+      var p=PRESETS[key]; if(!p) return;
       for(var i=0;i<btns.length;i++) btns[i].classList.remove('scc-on');
-      this.classList.add('scc-on');
-      $('sccPresetNote').textContent = NOTES[this.getAttribute('data-p')] || '';
+      if(btn) btn.classList.add('scc-on');
+      $('sccPresetNote').textContent = NOTES[key] || '';
       $('sccPL').checked=p.pl;
       $(F.retail).value=p.retail; $(F.parts).value=p.parts; $(F.comm).value=p.comm;
       $(F.ptax).value=p.ptax;     $(F.owner).value=p.owner;
@@ -1098,12 +1097,16 @@
       $(F.opex).value=p.opex;     $(F.backbar).value=p.backbar; $(F.cogs).value=p.cogs;
       $(F.card).value=p.card;     $(F.target).value=p.target;
       render();
-    });
+  }
+  for(var b=0;b<btns.length;b++){
+    (function(btn){
+      btn.addEventListener('click',function(){ applyPreset(btn.getAttribute('data-p'), btn); });
+    })(btns[b]);
   }
 
-  btns[0].classList.add('scc-on');
-  $('sccPresetNote').textContent = NOTES.reality;
-  render();
+  // Load with the first preset actually applied, not just highlighted, so the
+  // numbers on screen always match the button that looks selected.
+  applyPreset('reality', btns[0]);
 })();
 
 /* ---------- tab shell ---------- */

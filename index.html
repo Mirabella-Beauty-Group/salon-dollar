@@ -695,8 +695,8 @@
         <span class="scc-tog-s">Charge the color you actually used as parts, then pay commission on the labor only. A mechanic bills both. Most salons absorb the parts and wonder why the margin is thin.</span></span>
       </label>
       <div class="scc-row" id="sccPartsRow" style="display:none;">
-        <div class="scc-rl"><span class="scc-rn">How much of it you bill back</span><span class="scc-rs">Share of the color you used that you charge the guest as parts. 100% means you get your product cost back. It is revenue, and it never pays commission.</span></div>
-        <div class="scc-rf"><input class="scc-in" type="number" id="sccParts" value="100" min="0" max="300" step="5"><span class="scc-unit">%</span></div>
+        <div class="scc-rl"><span class="scc-rn">How much of it you bill back</span><span class="scc-rs">What you charge the guest for the colour, against what it cost you. <b>100%</b> just gets your cost back. <b>200%</b> is the standard charge. <b>300%</b> is for a transformation or a colour correction. It is revenue, and it never pays commission.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccParts" value="200" min="0" max="400" step="10"><span class="scc-unit">%</span></div>
       </div>
       <div class="scc-row" id="sccPartsOut" style="display:none;">
         <div class="scc-rl"><span class="scc-rn" id="sccPartsAmt">&nbsp;</span><span class="scc-rs" id="sccPartsNote">&nbsp;</span></div>
@@ -798,13 +798,13 @@
          mktg:'sccMktg',opex:'sccOpex',backbar:'sccBackbar',cogs:'sccCogs',card:'sccCard'};
 
   var PRESETS={
-    reality:   {comm:55,parts:100,pl:false,retail:15,ptax:15,owner:120000,
+    reality:   {comm:55,parts:200,pl:false,retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    partslabor:{comm:55,parts:100,pl:true, retail:15,ptax:15,owner:120000,
+    partslabor:{comm:55,parts:200,pl:true, retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    target:    {comm:45,parts:100,pl:true, retail:15,ptax:15,owner:120000,
+    target:    {comm:45,parts:200,pl:true, retail:15,ptax:15,owner:120000,
                 rent:8000,mktg:4000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    booth:     {comm:42,parts:150,pl:true, retail:22,ptax:15,owner:144000,
+    booth:     {comm:42,parts:300,pl:true, retail:22,ptax:15,owner:144000,
                 rent:7000,mktg:5000,opex:5500,backbar:3800,cogs:50,card:2.5,target:20}
   };
 
@@ -812,7 +812,7 @@
     reality:'Where a lot of salons actually sit. Total payroll at 55% of revenue once you count everyone, and the house eats the colour. Nothing is billed back.',
     partslabor:'The exact same salon with ONE change. The colour is billed back to the guest as parts, so you recover what the product cost you. Same team, same pay, same guests. Compare the profit to the first tab.',
     target:'Total payroll right on the 45% ceiling, with the colour billed back. Worth seeing: even with payroll exactly where it belongs, 20% profit still is not automatic. The rest of the building has to be right too.',
-    booth:'Payroll down at 42%, retail at 22% of revenue instead of 15, a cheaper lease, and product billed back at 150%. Shows how much of the work retail and overhead quietly do.'
+    booth:'Payroll down at 42%, retail at 22% of revenue instead of 15, a cheaper lease, and colour billed back at 300%. Shows how much of the work retail and overhead quietly do.'
   };
 
   var SL=[

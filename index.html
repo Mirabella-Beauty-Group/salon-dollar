@@ -389,14 +389,14 @@
 .scc-mini-b{font-size:13px; color:var(--scc-ink2); line-height:1.5;}
 
 /* the reference pie */
-.scc-refwrap{display:grid; grid-template-columns:minmax(200px,300px) 1fr; gap:clamp(18px,3.5vw,36px); align-items:center;}
+.scc-refwrap{display:grid; grid-template-columns:minmax(250px,400px) 1fr; gap:clamp(16px,2.5vw,28px); align-items:center;}
 @media(max-width:700px){.scc-refwrap{grid-template-columns:1fr;} .scc-refpie{max-width:280px; margin:0 auto;}}
 .scc-refpie{width:100%; height:auto; display:block; overflow:visible;}
 .scc-refpie path{stroke:var(--scc-card); stroke-width:3; stroke-linejoin:round;}
 .scc-refpie text{text-anchor:middle; font-family:inherit; font-variant-numeric:tabular-nums;}
 .scc-refpie .scc-pn{font-size:20px; font-weight:700;}
 .scc-refpie .scc-ps{font-size:10px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;}
-.scc-refpie .scc-ps-sm{font-size:8.5px; letter-spacing:0.2px;}
+.scc-refpie .scc-lead{stroke:var(--scc-ink3); stroke-width:1.4; fill:none;}
 .scc-reflist{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:13px 20px;}
 .scc-refitem{display:flex; gap:9px; align-items:flex-start;}
 .scc-refsw{width:12px; height:12px; border-radius:3px; flex:none; margin-top:4px;}
@@ -538,7 +538,7 @@
     <h3 class="scc-h">Where every dollar of income goes</h3>
     <p class="scc-base">Measured against <b>total income</b></p>
     <div class="scc-refwrap">
-      <svg class="scc-refpie" viewBox="-132 -116 264 264" role="img"
+      <svg class="scc-refpie" viewBox="-182 -116 314 264" role="img"
            aria-label="One dollar of income: payroll 45 percent, rent 10 percent, everything else 25 percent, profit 20 percent.">
         <g>
           <path fill="#2a78d6" d="M 0 0 L 0.00 -100.00 A 100 100 0 0 1 30.90 95.11 Z"></path>
@@ -546,11 +546,12 @@
           <path fill="#b3a89b" d="M 0 0 L -30.90 95.11 A 100 100 0 0 1 -95.11 -30.90 Z"></path>
           <path fill="#1baf7a" d="M 0 0 L -95.11 -30.90 A 100 100 0 0 1 -0.00 -100.00 Z"></path>
         </g>
+        <path class="scc-lead" d="M-89.1 45.4 L-101.57 51.75 L-115.57 51.75"></path>
         <g>
           <text class="scc-pn" x="61.24" y="-10" fill="#fff">45%</text>
           <text class="scc-ps" x="61.24" y="7" fill="#fff">Payroll</text>
-          <text class="scc-pn" x="-57" y="17" fill="#2a241d">25%</text>
-          <text class="scc-ps scc-ps-sm" x="-57" y="34" fill="#2a241d">Everything else</text>
+          <text class="scc-pn" x="-125.6" y="47" fill="#1a1714" text-anchor="end">25%</text>
+          <text class="scc-ps" x="-125.6" y="62" fill="#5d554b" text-anchor="end">Everything else</text>
           <text class="scc-pn" x="-35.27" y="-53" fill="#fff">20%</text>
           <text class="scc-ps" x="-35.27" y="-36" fill="#fff">Profit</text>
           <text class="scc-pn" x="0" y="122" fill="#1a1714">10%</text>

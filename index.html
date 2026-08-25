@@ -112,6 +112,13 @@
 .scc-calc input.scc-big::-webkit-outer-spin-button,
 .scc-calc input.scc-big::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
 .scc-calc .scc-hint{font-size:12px; color:var(--scc-ink3); margin:6px 0 0;}
+.scc-calc .scc-totline{
+  background:var(--scc-ink); color:#fff; border-radius:10px;
+  padding:13px 20px; margin-bottom:18px; font-size:15px; font-weight:600;
+  display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
+}
+.scc-calc .scc-totline b{font-size:20px; font-variant-numeric:tabular-nums;}
+.scc-calc .scc-totline span{opacity:.72; font-size:13px; font-weight:600;}
 
 /* presets */
 .scc-calc .scc-presets{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
@@ -757,11 +764,18 @@
 
   <div class="scc-hero">
     <div class="scc-hero-f">
-      <label class="scc-hero-lab" for="sccRev">Monthly revenue</label>
+      <label class="scc-hero-lab" for="sccRev">Service revenue</label>
       <div class="scc-hero-in">
-        <div class="scc-money"><input class="scc-big" type="number" id="sccRev" value="100000" min="0" step="1000"></div>
+        <div class="scc-money"><input class="scc-big" type="number" id="sccRev" value="85000" min="0" step="1000"></div>
       </div>
-      <p class="scc-hint">Service and retail together, from one real month.</p>
+      <p class="scc-hint">What the chairs brought in this month.</p>
+    </div>
+    <div class="scc-hero-f">
+      <label class="scc-hero-lab" for="sccRetail">Retail sales</label>
+      <div class="scc-hero-in">
+        <div class="scc-money"><input class="scc-big" type="number" id="sccRetail" value="15000" min="0" step="500"></div>
+      </div>
+      <p class="scc-hint" id="sccRetailHint">Product sold on top of that.</p>
     </div>
     <div class="scc-hero-f">
       <label class="scc-hero-lab" for="sccTarget">Profit you want to keep</label>
@@ -772,6 +786,8 @@
       <p class="scc-hint">Set this first. Everything else has to fit around it.</p>
     </div>
   </div>
+
+  <div class="scc-totline" id="sccTotLine"></div>
 
   <span class="scc-presets-lab">Four starting points. Pick the one closest to your salon, then change any number below.</span>
   <div class="scc-presets" id="sccPresets">
@@ -786,12 +802,6 @@
     <!-- ============ INPUTS ============ -->
     <div class="scc-panel">
       <div class="scc-ph">Your numbers</div>
-
-      <div class="scc-grp">Where the revenue comes from</div>
-      <div class="scc-row">
-        <div class="scc-rl"><span class="scc-rn">Retail</span><span class="scc-rs">Share of total revenue. The rest is service.</span></div>
-        <div class="scc-rf"><input class="scc-in" type="number" id="sccRetail" value="15" min="0" max="60" step="0.5"><span class="scc-unit">%</span></div>
-      </div>
 
       <div class="scc-note">
         <b>Doing parts and labour?</b> Then it is already in the number above. If colour costs you
@@ -901,18 +911,18 @@
          mktg:'sccMktg',opex:'sccOpex',backbar:'sccBackbar',cogs:'sccCogs',card:'sccCard'};
 
   var PRESETS={
-    reality:   {comm:55,rcomm:10,retail:15,ptax:15,owner:120000,
+    reality:   {rev:85000,retail:15000,comm:55,rcomm:10,ptax:15,owner:120000,
                 rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    target:    {comm:45,rcomm:10,retail:15,ptax:15,owner:120000,
+    target:    {rev:85000,retail:15000,comm:45,rcomm:10,ptax:15,owner:120000,
                 rent:8000,mktg:4000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
-    booth:     {comm:42,rcomm:12,retail:22,ptax:15,owner:144000,
+    booth:     {rev:78000,retail:22000,comm:42,rcomm:12,ptax:15,owner:144000,
                 rent:7000,mktg:5000,opex:5500,backbar:3800,cogs:50,card:2.5,target:20}
   };
 
   var NOTES={
-    reality:'Where a lot of salons actually sit. 55% of service work goes to the team, which lands total payroll at 48.3% of revenue once retail commission is counted. Over the 45% ceiling, and the profit shows it.',
-    target:'45% of service work to the team, which is 39.8% of revenue all in, comfortably under the ceiling. Worth seeing: even with payroll where it belongs, 20% profit is not automatic. The rest of the building has to be right too.',
-    booth:'42% of service work to the team, 35.4% of revenue all in, with a leaner lease and lower overhead. Shows how much of the work a tight cost base quietly does.'
+    reality:'Where a lot of salons actually sit. $85,000 of service and $15,000 of retail, with 55% of service work going to the team. Total payroll lands at 48.3% of revenue, over the 45% ceiling, and the profit shows it.',
+    target:'Same month, but 45% of service work to the team. That is 39.8% of revenue all in, comfortably under the ceiling. Worth seeing: even with payroll where it belongs, 20% profit is not automatic. The rest of the building has to be right too.',
+    booth:'A stronger retail program, $22,000 against $78,000 of service, with 42% of service work to the team and a leaner cost base. Shows how much of the work retail and overhead quietly do.'
   };
 
   var SL=[
@@ -936,22 +946,15 @@
   function pct(v){return (v*100).toFixed(1)+'%';}
 
   function model(){
-    // Base revenue is what the salon collects today, service plus retail.
-    var baseRev=num(F.rev);
-    var rRet=num(F.retail)/100;
-    var retail=baseRev*rRet, service=baseRev-retail;
+    // Service and retail are both entered in dollars, so selling more product
+    // ADDS to the month instead of cannibalising service. That is what makes a
+    // retail dollar behave the way the rest of this page says it does.
+    var service=num(F.rev), retail=num(F.retail);
+    var rev = service + retail;
+    var rRet = rev ? retail/rev : 0;
 
-    // Product is a real dollar cost. Parts is the share of that cost you bill
-    // back to the guest. It is new revenue, and it never pays commission, so
-    // it lands straight on the bottom line minus card fees.
     var backbar=num(F.backbar);
-    var rev = baseRev;
 
-    // One payroll number: everything paid to a human, owner pay included.
-    // Burden sits outside it so this stays comparable to the 45% ceiling.
-    // Service and retail carry very different labour. Charging one blended
-    // rate against both made every retail dollar lose money, which is the
-    // opposite of what retail actually does.
     var P=num(F.comm)/100, rc=num(F.rcomm)/100, b=num(F.ptax)/100;
     var payroll = service*P + retail*rc;
     var burden  = payroll*b;
@@ -964,21 +967,25 @@
     var costs = payroll+burden+rent+backbar+cogs+card+mktg+opexFixed;
     var profit = rev-costs;
 
-    // Solver pieces. M is what one dollar of base revenue contributes once the
-    // costs that scale with it are out. FxD is the fixed block, with the parts
-    // recovery credited back against it.
-    // Product is a flat dollar figure in the ledger, so the solver has to
-    // treat it the same way or the two disagree on screen.
-    var M   = 1 - ((1-rRet)*P + rRet*rc)*(1+b) - rRet*cg - cf;
+    // Solver. M is what a dollar of THIS mix keeps once the costs that scale
+    // with it are out. Product is a flat figure, so it sits in the fixed block
+    // alongside rent, exactly as the ledger spends it.
+    var varCost = payroll*(1+b) + cogs + card;
+    var M   = rev ? (rev - varCost)/rev : 0;
     var FxD = rent+mktg+opexFixed+backbar;
     var tp  = num(F.target)/100;
 
-    return {baseRev:baseRev, rev:rev, retail:retail, service:service,
-            backbar:backbar, bbRate:(service?backbar/service:0),
+    // what one extra dollar of each keeps
+    var svcDollar = 1 - P*(1+b) - cf;
+    var retDollar = 1 - rc*(1+b) - cg - cf;
+
+    return {baseRev:rev, rev:rev, retail:retail, service:service, rRet:rRet,
+            backbar:backbar,
             payroll:payroll, burden:burden, owner:owner,
-            P:P, rc:rc, b:b, rRet:rRet, cg:cg, cf:cf,
+            P:P, rc:rc, b:b, cg:cg, cf:cf,
             cogs:cogs, card:card, rent:rent, mktg:mktg, opexFixed:opexFixed,
             costs:costs, profit:profit, profitPct:rev?profit/rev:0,
+            svcDollar:svcDollar, retDollar:retDollar,
             M:M, FxD:FxD, tp:tp};
   }
 
@@ -998,8 +1005,15 @@
     // live % readouts next to dollar inputs
     $('sccOwnerSub').textContent='This comes OUT of the payroll number above, not on top of it. That is '+usd(m.owner)+' a month'+(m.owner>m.payroll?'. Careful: that is more than your whole payroll figure.':'.');
     $('sccBackbarPct').textContent = m.service ? (m.backbar/m.service*100).toFixed(1)+'%' : '';
+    var rOfS = m.service ? m.retail/m.service*100 : 0;
+    $('sccRetailHint').textContent = m.service
+      ? 'Product sold on top of that. '+rOfS.toFixed(0)+'% of service'+(rOfS>=15?', past the 15% mark.':', under the 15% mark.')
+      : 'Product sold on top of that.';
+    $('sccTotLine').innerHTML = m.rev
+      ? '<span>Total revenue for the month</span><b>'+usd(m.rev)+'</b>'
+      : '<span>Put in your service revenue to start</span><b>&nbsp;</b>';
     var payAll = m.rev ? m.payroll/m.rev*100 : 0;
-    $('sccCommSub').textContent='The share of SERVICE work that goes to the team. With retail commission added, total payroll is '+usd(m.payroll)+' a month, which is '+(m.rev?(m.payroll/m.rev*100).toFixed(1):'0')+'% of revenue'+
+    $('sccCommSub').textContent='The share of SERVICE work that goes to the team. With retail commission added, total payroll is '+usd(m.payroll)+' a month, '+(m.rev?(m.payroll/m.rev*100).toFixed(1):'0')+'% of total revenue'+
       '.';
     var pairs=[['sccOwnerPct',m.owner],['sccRentPct',m.rent],
                ['sccMktgPct',m.mktg],['sccOpexPct',m.opexFixed]];
@@ -1143,7 +1157,7 @@
       if(denom>0.0001){
         var need=Math.ceil(m.FxD/denom/100)*100;   // round UP to a typable figure that clears the target
         if(need>m.baseRev && need<=m.baseRev*10){
-          fx.push('Keep every percentage exactly as it is and grow to <strong>'+usd(need)+' a month</strong> in service and retail. Your fixed bills stop growing, so the gap closes on its own. That is '+((need/m.baseRev-1)*100).toFixed(0)+'% more.');
+          fx.push('Keep the same mix and grow to <strong>'+usd(need)+' a month</strong> all in. Your fixed bills stop growing, so the gap closes on its own. That is '+((need/m.rev-1)*100).toFixed(0)+'% more.');
         }
       } else {
         fx.push('<strong>No amount of revenue fixes this.</strong> Payroll, burden, product and card fees alone eat '+pct(1-contrib)+' of every dollar, leaving '+pct(contrib)+'. You cannot get to '+(m.tp*100).toFixed(0)+'% by getting busier. The pay structure has to change.');
@@ -1151,11 +1165,22 @@
 
       // 2. payroll percentage needed at this revenue
       if(m.baseRev>0 && (1+m.b)>0){
-        var rhs=(m.tp*m.baseRev + m.FxD)/m.baseRev;
-        var pNeed=((1 - m.rRet*m.cg - m.cf - rhs)/(1+m.b) - m.rRet*m.rc)/(1-m.rRet);
+        // solve service payroll % so profit lands on target
+        var lhs = m.rev*(1-m.tp) - m.rent - m.backbar - m.mktg - m.opexFixed - m.cogs - m.card;
+        var pNeed = m.service>0 ? ((lhs/(1+m.b)) - m.retail*m.rc)/m.service : -1;
         if(pNeed>0 && pNeed<m.P){
           var pShown=Math.floor(pNeed*1000)/1000;               // round DOWN so typing it clears the bar
           fx.push('Or bring payroll on service from '+(m.P*100).toFixed(1)+'% down to <strong>'+(pShown*100).toFixed(1)+'%</strong>. Total payroll would be '+usd(m.service*pShown + m.retail*m.rc)+' a month instead of '+usd(m.payroll)+', retail commission included.');
+        }
+      }
+
+      // 3. sell more retail, now that retail actually adds revenue
+      var perRetailDollar = m.retDollar - m.tp;
+      if(perRetailDollar>0.01){
+        var gapNow = m.rev*m.tp - m.profit;
+        var extraRetail = Math.ceil(gapNow/perRetailDollar/100)*100;
+        if(extraRetail>0 && extraRetail < m.service*1.5){
+          fx.push('Or sell <strong>'+usd(extraRetail)+' more retail a month</strong>, on top of what you already do. Every retail dollar keeps '+(m.retDollar*100).toFixed(0)+' cents after commission, product cost and card fees, which is why it is the cheapest lever you have.');
         }
       }
 
@@ -1183,7 +1208,7 @@
       for(var i=0;i<btns.length;i++) btns[i].classList.remove('scc-on');
       if(btn) btn.classList.add('scc-on');
       $('sccPresetNote').textContent = NOTES[key] || '';
-      $(F.retail).value=p.retail; $(F.comm).value=p.comm; $(F.rcomm).value=p.rcomm;
+      $(F.rev).value=p.rev; $(F.retail).value=p.retail; $(F.comm).value=p.comm; $(F.rcomm).value=p.rcomm;
       $(F.ptax).value=p.ptax;     $(F.owner).value=p.owner;
       $(F.rent).value=p.rent;     $(F.mktg).value=p.mktg;
       $(F.opex).value=p.opex;     $(F.backbar).value=p.backbar; $(F.cogs).value=p.cogs;

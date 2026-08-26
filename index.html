@@ -113,10 +113,15 @@
 .scc-calc input.scc-big::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
 .scc-calc .scc-hint{font-size:12px; color:var(--scc-ink3); margin:6px 0 0;}
 .scc-calc .scc-totline{
+  grid-column:1 / -1;
   background:var(--scc-ink); color:#fff; border-radius:10px;
-  padding:13px 20px; margin-bottom:18px; font-size:15px; font-weight:600;
+  padding:14px 20px; margin:2px 0 0; font-size:15px; font-weight:600;
   display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;
 }
+.scc-calc .scc-hero-lab em{
+  font-style:normal; color:var(--scc-accent); font-weight:700;
+}
+.scc-calc .scc-hint b{color:var(--scc-ink2);}
 .scc-calc .scc-totline b{font-size:20px; font-variant-numeric:tabular-nums;}
 .scc-calc .scc-totline span{opacity:.72; font-size:13px; font-weight:600;}
 
@@ -764,14 +769,14 @@
 
   <div class="scc-hero">
     <div class="scc-hero-f">
-      <label class="scc-hero-lab" for="sccRev">Service revenue</label>
+      <label class="scc-hero-lab" for="sccRev">Service revenue <em>only</em></label>
       <div class="scc-hero-in">
         <div class="scc-money"><input class="scc-big" type="number" id="sccRev" value="85000" min="0" step="1000"></div>
       </div>
-      <p class="scc-hint">What the chairs brought in this month.</p>
+      <p class="scc-hint"><b>Not your whole month.</b> Just what the chairs brought in. Retail goes in the next box.</p>
     </div>
     <div class="scc-hero-f">
-      <label class="scc-hero-lab" for="sccRetail">Retail sales</label>
+      <label class="scc-hero-lab" for="sccRetail">Retail sales <em>only</em></label>
       <div class="scc-hero-in">
         <div class="scc-money"><input class="scc-big" type="number" id="sccRetail" value="15000" min="0" step="500"></div>
       </div>
@@ -785,9 +790,8 @@
       </div>
       <p class="scc-hint">Set this first. Everything else has to fit around it.</p>
     </div>
+    <div class="scc-totline" id="sccTotLine"></div>
   </div>
-
-  <div class="scc-totline" id="sccTotLine"></div>
 
   <span class="scc-presets-lab">Four starting points. Pick the one closest to your salon, then change any number below.</span>
   <div class="scc-presets" id="sccPresets">
@@ -1010,8 +1014,8 @@
       ? 'Product sold on top of that. '+rOfS.toFixed(0)+'% of service'+(rOfS>=15?', past the 15% mark.':', under the 15% mark.')
       : 'Product sold on top of that.';
     $('sccTotLine').innerHTML = m.rev
-      ? '<span>Total revenue for the month</span><b>'+usd(m.rev)+'</b>'
-      : '<span>Put in your service revenue to start</span><b>&nbsp;</b>';
+      ? '<span>'+usd(m.service)+' service  +  '+usd(m.retail)+' retail</span><b>'+usd(m.rev)+' this month</b>'
+      : '<span>Put your service revenue in to start</span><b>&nbsp;</b>';
     var payAll = m.rev ? m.payroll/m.rev*100 : 0;
     $('sccCommSub').textContent='The share of SERVICE work that goes to the team. With retail commission added, total payroll is '+usd(m.payroll)+' a month, '+(m.rev?(m.payroll/m.rev*100).toFixed(1):'0')+'% of total revenue'+
       '.';

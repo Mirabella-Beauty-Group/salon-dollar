@@ -849,8 +849,8 @@
 
       <div class="scc-grp">Costs that move with sales</div>
       <div class="scc-row">
-        <div class="scc-rl"><span class="scc-rn">Product you used</span><span class="scc-rs">Colour and backbar. What it actually cost you this month, in dollars.</span></div>
-        <div class="scc-rf"><input class="scc-in" type="number" id="sccBackbar" value="4250" min="0" step="250"><span class="scc-live" id="sccBackbarPct"></span></div>
+        <div class="scc-rl"><span class="scc-rn">Product you used</span><span class="scc-rs" id="sccBackbarSub">Colour and backbar, as a share of service sales. Around 5% is the mark. This scales with your service revenue, because more services means more colour.</span></div>
+        <div class="scc-rf"><input class="scc-in" type="number" id="sccBackbar" value="5" min="0" max="25" step="0.1"><span class="scc-unit">%</span></div>
       </div>
       <div class="scc-row">
         <div class="scc-rl"><span class="scc-rn">Retail product cost</span><span class="scc-rs">What you pay for what you sell. Percent of retail sales.</span></div>
@@ -916,11 +916,11 @@
 
   var PRESETS={
     reality:   {rev:85000,retail:15000,comm:55,rcomm:10,ptax:15,owner:120000,
-                rent:8000,mktg:5000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
+                rent:8000,mktg:5000,opex:6000,backbar:5,cogs:50,card:2.5,target:20},
     target:    {rev:85000,retail:15000,comm:45,rcomm:10,ptax:15,owner:120000,
-                rent:8000,mktg:4000,opex:6000,backbar:4250,cogs:50,card:2.5,target:20},
+                rent:8000,mktg:4000,opex:6000,backbar:5,cogs:50,card:2.5,target:20},
     booth:     {rev:78000,retail:22000,comm:42,rcomm:12,ptax:15,owner:144000,
-                rent:7000,mktg:5000,opex:5500,backbar:3800,cogs:50,card:2.5,target:20}
+                rent:7000,mktg:5000,opex:5500,backbar:4.9,cogs:50,card:2.5,target:20}
   };
 
   var NOTES={
@@ -957,7 +957,8 @@
     var rev = service + retail;
     var rRet = rev ? retail/rev : 0;
 
-    var backbar=num(F.backbar);
+    var bbPct=num(F.backbar)/100;
+    var backbar=service*bbPct;
 
     var P=num(F.comm)/100, rc=num(F.rcomm)/100, b=num(F.ptax)/100;
     var payroll = service*P + retail*rc;
@@ -974,17 +975,17 @@
     // Solver. M is what a dollar of THIS mix keeps once the costs that scale
     // with it are out. Product is a flat figure, so it sits in the fixed block
     // alongside rent, exactly as the ledger spends it.
-    var varCost = payroll*(1+b) + cogs + card;
+    var varCost = payroll*(1+b) + cogs + card + backbar;
     var M   = rev ? (rev - varCost)/rev : 0;
-    var FxD = rent+mktg+opexFixed+backbar;
+    var FxD = rent+mktg+opexFixed;
     var tp  = num(F.target)/100;
 
     // what one extra dollar of each keeps
-    var svcDollar = 1 - P*(1+b) - cf;
+    var svcDollar = 1 - P*(1+b) - cf - bbPct;
     var retDollar = 1 - rc*(1+b) - cg - cf;
 
     return {baseRev:rev, rev:rev, retail:retail, service:service, rRet:rRet,
-            backbar:backbar,
+            backbar:backbar, bbPct:bbPct,
             payroll:payroll, burden:burden, owner:owner,
             P:P, rc:rc, b:b, cg:cg, cf:cf,
             cogs:cogs, card:card, rent:rent, mktg:mktg, opexFixed:opexFixed,
@@ -1008,7 +1009,7 @@
 
     // live % readouts next to dollar inputs
     $('sccOwnerSub').textContent='This comes OUT of the payroll number above, not on top of it. That is '+usd(m.owner)+' a month'+(m.owner>m.payroll?'. Careful: that is more than your whole payroll figure.':'.');
-    $('sccBackbarPct').textContent = m.service ? (m.backbar/m.service*100).toFixed(1)+'%' : '';
+    $('sccBackbarSub').textContent = 'Colour and backbar, as a share of service sales. Around 5% is the mark. That is '+usd(m.backbar)+' this month, and it grows as your service revenue does.';
     var rOfS = m.service ? m.retail/m.service*100 : 0;
     $('sccRetailHint').textContent = m.service
       ? 'Product sold on top of that. '+rOfS.toFixed(0)+'% of service'+(rOfS>=15?', past the 15% mark.':', under the 15% mark.')
@@ -1170,7 +1171,7 @@
       // 2. payroll percentage needed at this revenue
       if(m.baseRev>0 && (1+m.b)>0){
         // solve service payroll % so profit lands on target
-        var lhs = m.rev*(1-m.tp) - m.rent - m.backbar - m.mktg - m.opexFixed - m.cogs - m.card;
+        var lhs = m.rev*(1-m.tp) - m.rent - m.mktg - m.opexFixed - m.backbar - m.cogs - m.card;
         var pNeed = m.service>0 ? ((lhs/(1+m.b)) - m.retail*m.rc)/m.service : -1;
         if(pNeed>0 && pNeed<m.P){
           var pShown=Math.floor(pNeed*1000)/1000;               // round DOWN so typing it clears the bar
